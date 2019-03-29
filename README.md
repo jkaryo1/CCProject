@@ -4,7 +4,7 @@ As most software engineers know, as codebases develop, new bugs are constantly b
 
 This repository will be holding all the deploying and testing code:
   - *create_random.py*: Python script to create a specified array length of random intergers and writing the array and sorted array to files.
-  - *name_of_git_clone_script*:
+  - *last_commits.py*: Python script that clones the specified repository and makes copies of each of the past n commits (including the current one) in separate folders. These versions are all uploaded to an aws bucket for testing. To run: `python last_commits.py <link_to_repository> <number_of_commits>`
   - *add_remove_bucket*: Bash script that adds all files in a directory to an S3 bucket and then removes everything in the bucket.  To run:  `./add_remove_bucket`, however, since our bucket is private, other users should get an Access Denied error.
 
 We will be using the following [repository](https://github.com/LionelEisenberg/CloudComp-Testing/) for to hold the code that we will be using our application on. For more specifics please see the README for that repository, but to summarize we have a rather basic python script that sorts an array of intergers and prints 
