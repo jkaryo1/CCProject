@@ -37,12 +37,12 @@ To accomplish our goal, we have developed a general plan of attack that we hope 
   * Shorting lambdas if previous commits have already been found to cause isse
 
 **Current Status:**
-*Created a codebase/repository and a testing suite.
-*Ran git-bisect manually on our repository and found where a bug was introduced.
-*Ran automated git-bisect on our repository and found where a bug was introduced.
-*Created a script to pull the past n commits from our repository
-*Successfully created an S3 bucket with appropriate credientals.
-*Successfully uploaded and deleted files from the S3 bucket using AWS CLI
+* Created a codebase/repository and a testing suite.
+* Ran git-bisect manually on our repository and found where a bug was introduced.
+* Ran automated git-bisect on our repository and found where a bug was introduced.
+* Created a script to pull the past n commits from our repository
+* Successfully created an S3 bucket with appropriate credientals.
+* Successfully uploaded and deleted files from the S3 bucket using AWS CLI
 
 
 **Who Has Done What:**
