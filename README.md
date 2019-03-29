@@ -53,7 +53,7 @@ To accomplish our goal, we have developed a general plan of attack that we hope 
 
   0. *General*
   
-      All group members contributed to brainstorming the best and most efficient way to put our project proposal into action. From researching the different cloud providers and comparing their pros and cons, to figuring out the best flow for our application.
+      All group members contributed to brainstorming the best and most efficient way to put our project proposal into action. From researching the different cloud providers and comparing their pros and cons, to figuring out the best flow for our application. Finally we all participated in the right up of the README.
 
   1. *Sanat Deshpande*
   
@@ -63,6 +63,7 @@ To accomplish our goal, we have developed a general plan of attack that we hope 
   
       I started this project by familiarizing myself with AWS Serverless functions and understanding how they work in the AWS system, how to trigger them with AWS API managment and how they differ from conventional backend servers. 
       I also created testing repository that we will be running our program on, creating the python script that sorts an array using three different algorithms. I also wrote the code to generate input files for our tests, this file should create a random specified length array and print it out to a file.
+      I wrote the testing function for the bubble sort part of the repository we will be testing in this project. I then managed to get results using `git bisect run python test_sorting.py ../CloudComp-Testing/main_file.py`. This was very quick but also only tested on a couple commits, and on very small sized files.
       Finally I examined the best ways to trigger the lambda test functions when we push our files to the s3 bucket we will be testing on.
       
   3. *Jon Karyo*
