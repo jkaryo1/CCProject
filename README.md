@@ -1,8 +1,6 @@
 # Welcome to the Homepage for our Cloud Computing Project
 
-You can use the [editor on GitHub](https://github.com/jkaryo1/CCProject/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+As most software engineers know, as codebases develop, new bugs are constantly being introduced and are often hard to detect and fix. We would like to propose a git based application that - from a specific repository - pulls multiple past code commits, and runs a series of tests on each build in order to determine which commit in the commit history is responsible for a specific bug. These tests would be deployed on separate AWS Lambda instances tp allow this testing to occur in parallel, saving engineers valuable time.
 
 ## Instructions:
 
