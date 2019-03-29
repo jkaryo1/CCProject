@@ -31,10 +31,10 @@ To accomplish our goal, we have developed a general plan of attack that we hope 
 7.  *Edit paramaters/Optimize code* - After we initially compare git-bisect to AWS Lambda, we can begin to edit the codebase to cover a wider array of scenarios.  We can create more complex functions and see how performances varies.  We can also begin to optimize our code and see if there are other ways to go about this problem.  For example, as a team we were debating whether the Lambdas themselves should pull from the git repository instead of the local machine doing so.  
 
 8. *Stretch Goals*:
-  a. Creating a frontend/UI
-  b. Optimizing the amount of tests each lambda function is running
-  c. Make more modularizable
-  d. Shorting lambdas if previous commits have already been found to cause isse
+  * Creating a frontend/UI
+  * Optimizing the amount of tests each lambda function is running
+  * Make more modularizable
+  * Shorting lambdas if previous commits have already been found to cause isse
 
 **Current Status:**
 
