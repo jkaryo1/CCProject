@@ -16,10 +16,11 @@ We will be using the following [repository](https://github.com/LionelEisenberg/C
 
 - **Who Has Done What:**
   1. *Sanat Deshpande*
+      I dedicated some time to familiarzing myself with how aws worked, and how to interact with s3 bucket storage using the aws CLI. This  since our tentative plan was to use s3 buckets as the source of files for our lambda instances. Second, I experimented with the best way to clone any given repository and obtain the last n commits from that repo. I wrote a bash script to do so, but it was rather difficult to do everything we needed in bash, so I elected to write a python script to do the same thing. Currently Jack and I are working on the feasibility of cloning git repos inside of a AWS Lambda instance, and figuring out whether it would be easier to do this, or to fetch the repo from an external bucket.
   2. *Lionel Eisenberg*
   3. *Jon Karyo*
   
-      I started out by going through the tutorial to create a GCP homepage. However, after it was live for 2 days, I had already burned through $6 in credits. So we decided to simply use GitHub pages for our project's homepage. I helped James troubleshoot permission issues for the S3 bucket, and we figured out how to give users from other accounts bucket permissions. I also collaborated with Sanat to coordinate the logistics of the git cloning of the previous n commits. At this point, we realized that our previous approach was flawed in that it limited parallelism, so I researched the use of the lambda-git package within the lambda running environment to remotely clone the repo at each of the previous commits instead of using the bucket approach.
+      I started out by going through the tutorial to create a GCP homepage. However, after it was live for 2 days, I had already burned through $6 in credits. So we decided to simply use GitHub pages for our project's homepage. I helped James troubleshoot permission issues for the S3 bucket, and we figured out how to give users from other accounts bucket permissions. I also collaborated with Sanat to coordinate the logistics of the git cloning of the previous n commits.
   
   4. *James Lubowsky*
   
