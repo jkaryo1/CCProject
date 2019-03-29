@@ -1,0 +1,6 @@
+#!/bin/bash
+# Create testing script
+
+aws s3 cp . s3://jhu-cloud-computing-lubowsky-test/ --recursive --exclude "*" --include "*"
+
+aws s3 rm s3://jhu-cloud-computing-lubowsky-test/ --recursive --include "*"
