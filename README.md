@@ -12,6 +12,10 @@ We will be using the following [repository](https://github.com/LionelEisenberg/C
 
 ## Checkpoint 1:
 
+-**Plan**
+
+
+
 - **Current Status:**
 
 - **Who Has Done What:**
