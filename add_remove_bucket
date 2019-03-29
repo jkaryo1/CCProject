@@ -1,5 +1,5 @@
 #!/bin/bash
-# Create testing script
+# Create script to add and remove from S3 bucket
 
 aws s3 cp . s3://jhu-cloud-computing-lubowsky-test/ --recursive --exclude "*" --include "*"
 
