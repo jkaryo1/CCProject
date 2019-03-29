@@ -20,6 +20,6 @@ We will be using the following [repository](https://github.com/LionelEisenberg/C
   3. *Jon Karyo*
   4. *James Lubowsky*
   
-      I have been focusing the majority of my attention on AWS.  As mentioned above, we plan on uploading previous git commits to an S3 bucket that our Amazon Lambdas can access.  For this checkpoint, I learned and created an S3 bucket that we will probably use for the remainder of our project.  The name of the bucket is *jhu-cloud-computing-lubowsky-test*.  The bucket is public and allows anyone to read from it, but our group has credentials to write to the bucket.
+      I have been focusing the majority of my attention on AWS.  As mentioned above, we plan on uploading previous git commits to an S3 bucket that our Amazon Lambdas can access.  For this checkpoint, I learned about and created an S3 bucket that we will use for the remainder of our project.  The name of the bucket is *jhu-cloud-computing-lubowsky-test*.  The bucket is public and allows anyone to read from it, but our group has credentials to write to the bucket.
       
-      I also created a bash script that uploads several files at once to the bucket and then deletes the files.  I wanted to just experiment with these functionalities, and successfully learned how to do so. 
+      I also created a bash script that uploads several files at once to the bucket and then deletes the files.  I wanted to just experiment with these functionalities, and successfully learned how to do so.  We plan on using a bashscript on our local machines to execute all our tasks, so it was imperative that I determine how to do these commands from the command line using AWSCLI.  
