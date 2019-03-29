@@ -17,6 +17,7 @@ We will be using the following [repository](https://github.com/LionelEisenberg/C
 To accomplish our goal, we have developed a general plan of attack that we hope to follow.
 
 1.  *Create a codebase/repository and a testing suite to test its functionality* - In order to evaluate the effectiveness of AWS Lambda in detecting code changes, we need to actually develop a code base and a testing suite.  The code that we wish to test should not be overly complex, but the overall time to complete should not be too short since we need to collect performance data.  We also need to introduce many commits in the repository so that we can look at past history.
+  We will operate at a level of abstraction that allows our tool to generalize to any programming language and any testing suite. As our lambda function has neither any knowledge of the program running nor any criteria by which to judge a "good" or "bad" commit, the user must provide a script that interprets the results of their testing suite as a simple good/bad categorization. This allows us to achieve maximal generalizability and to focus on the task of automatically fetching, deploying, and testing all of the specified commits in parallel.
 
 2.  *git-bisect* - After we have a codebase and testing suite, we need to learn how to use git-bisect (manual and automated).  From here, we can quanitatively see how long it takes to find a code breaking bug in the repository.
 
