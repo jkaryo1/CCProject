@@ -18,17 +18,17 @@ We will be using the following [repository](https://github.com/LionelEisenberg/C
 
 To accomplish our goal, we have developed a general plan of attack that we hope to follow.
 
-1.  *Create a codebase/repository and a testing suite to test its functionality* - In order to evaluate the effectiveness of AWS Lambda in detecting code changes, we need to actually develop a code base and a testing suite.  The code that we wish to test should not be overly complex, but the overall time to complete should not be too short since we need to collect performance data.  We also need to introduce many commits in the repository so that we can look at past history.
+1.  *Create a codebase/repository and a testing script to test its functionality* - In order to evaluate the effectiveness of AWS Lambda in detecting code changes, we need to actually develop a code base and a testing script.  The code that we wish to test should not be overly complex, but the overall time to complete should not be too short since we need to collect performance data.  We also need to introduce many commits in the repository so that we can look at past history.
   
-    We will operate at a level of abstraction that allows our tool to generalize to any programming language and any testing suite. As our lambda function has neither any knowledge of the program running nor any criteria by which to judge a "good" or "bad" commit, the user must provide a script that interprets the results of their testing suite as a simple good/bad categorization. This allows us to achieve maximal generalizability and to focus on the task of automatically fetching, deploying, and testing all of the specified commits in parallel.
+    We will operate at a level of abstraction that allows our tool to generalize to any programming language and any testing script. As our lambda function has neither any knowledge of the program running nor any criteria by which to judge a "good" or "bad" commit, the user must provide a script that interprets the results of their testing script as a simple good/bad categorization. This allows us to achieve maximal generalizability and to focus on the task of automatically fetching, deploying, and testing all of the specified commits in parallel.
 
-2.  *git-bisect* - After we have a codebase and testing suite, we need to learn how to use git-bisect (manual and automated).  From here, we can quanitatively see how long it takes to find a code breaking bug in the repository.
+2.  *git-bisect* - After we have a codebase and testing script, we need to learn how to use git-bisect (manual and automated).  From here, we can quanitatively see how long it takes to find a code breaking bug in the repository.
 
 3.  *Pull previous commits from Github repository* - We need to be able to grab previous commits from a repository and save the files from those commits in an efficient manner in order to utilize AWS Lambda.
 
 4.  *Upload previous commits to AWS S3 bucket* - We need to be able to upload the files from the previous commits to an AWS S3 bucket.  After a file is uploaded, a Lambda function will be triggered.  Amazon has well documeneted examples explaining how to properly trigger Lambdas using their S3 service.
 
-5.  *Create Lambda functions* - We need to create Lambda functions that will run with the previous commit code and a testing file.  We plan to trigger the Lambda by uploading the commit code to an S3 bucket.  The Lambda will execute the test suite and report back TRUE or FALSE indicating whether the test cases passed or failed.
+5.  *Create Lambda functions* - We need to create Lambda functions that will run with the previous commit code and a testing file.  We plan to trigger the Lambda by uploading the commit code to an S3 bucket.  The Lambda will execute the test script and report back TRUE or FALSE indicating whether the test cases passed or failed.
 
 6.  *Compare computation time between AWS Lambda and git-bisect* - This will ultamitely allow us to determine which method of testing is superior.
 
@@ -41,12 +41,13 @@ To accomplish our goal, we have developed a general plan of attack that we hope 
   * Shorting lambdas if previous commits have already been found to cause isse
 
 **Current Status:**
-* Created a codebase/repository and a testing suite.
+* Created a codebase/repository and a testing script.
 * Ran git-bisect manually on our repository and found where a bug was introduced.
 * Ran automated git-bisect on our repository and found where a bug was introduced.
-* Created a script to pull the past n commits from our repository
+* Created a script to pull the past n commits from our repository.
 * Successfully created an S3 bucket with appropriate credientals.
-* Successfully uploaded and deleted files from the S3 bucket using AWS CLI
+* Successfully uploaded and deleted files from the S3 bucket using AWS CLI.
+* Resereached topic more in depth and developed plan and architecture of project.
 
 
 **Who Has Done What:**
