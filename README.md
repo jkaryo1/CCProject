@@ -40,7 +40,7 @@ To accomplish our goal, we have developed a general plan of attack that we hope 
 
   1. *Sanat Deshpande*
   
-      I dedicated some time to familiarzing myself with how aws worked, and how to interact with s3 bucket storage using the aws CLI. This  was since our tentative plan was to use s3 buckets as the source of files for our lambda instances. Second, I experimented with the best way to clone any given repository and obtain the last n commits from that repo. I wrote a bash script to do so, but it was rather difficult to do everything we needed in bash, so I elected to write a python script to do the same thing. Currently Jon and I are working on the feasibility of cloning git repos inside of a AWS Lambda instance, and figuring out whether it would be easier to do this, or to fetch the repo from an external bucket.
+      I dedicated some time to familiarzing myself with how aws worked, and how to interact with s3 bucket storage using the aws CLI. This  was since our plan is to use s3 buckets as the source of files for our lambda instances. Second, I experimented with the best way to clone any given repository and obtain the last n commits from that repo. I wrote a bash script to do so, but it was rather difficult to do everything we needed in bash, so I elected to write a python script to do the same thing. This presented its own challenges in terms of managing the subprocesses to clone and checkout various commits.
       
   2. *Lionel Eisenberg*
   
