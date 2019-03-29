@@ -15,10 +15,21 @@ We will be using the following [repository](https://github.com/LionelEisenberg/C
 - **Current Status:**
 
 - **Who Has Done What:**
+
+  0. *General*
+  
+      All group members contributed to brainstorming the best and most efficient way to put our project proposal into action. From researching the different cloud providers and comparing their pros and cons, to figuring out the best flow for our application.
+
   1. *Sanat Deshpande*
   
       I dedicated some time to familiarzing myself with how aws worked, and how to interact with s3 bucket storage using the aws CLI. This  was since our tentative plan was to use s3 buckets as the source of files for our lambda instances. Second, I experimented with the best way to clone any given repository and obtain the last n commits from that repo. I wrote a bash script to do so, but it was rather difficult to do everything we needed in bash, so I elected to write a python script to do the same thing. Currently Jon and I are working on the feasibility of cloning git repos inside of a AWS Lambda instance, and figuring out whether it would be easier to do this, or to fetch the repo from an external bucket.
+      
   2. *Lionel Eisenberg*
+  
+      I started this project by familiarizing myself with AWS Serverless functions and understanding how they work in the AWS system, how to trigger them with AWS API managment and how they differ from conventional backend servers. 
+      I also created testing repository that we will be running our program on, creating the python script that sorts an array using three different algorithms. I also wrote the code to generate input files for our tests, this file should create a random specified length array and print it out to a file.
+      Finally I examined the best ways to trigger the lambda test functions when we push our files to the s3 bucket we will be testing on.
+      
   3. *Jon Karyo*
   
       I started out by going through the tutorial to create a GCP homepage. However, after it was live for 2 days, I had already burned through $6 in credits. So we decided to simply use GitHub pages for our project's homepage. I helped James troubleshoot permission issues for the S3 bucket, and we figured out how to give users from other accounts bucket permissions. I also collaborated with Sanat to coordinate the logistics of the git cloning of the previous n commits. Sanat and I are looking into the feasibility of cloning git repos directly inside of an AWS Lambda instance, although our initial research seems to indicate that we may be sticking with the bucket approach.
