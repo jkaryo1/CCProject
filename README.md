@@ -18,8 +18,11 @@ We will be using the following [repository](https://github.com/LionelEisenberg/C
   1. *Sanat Deshpande*
   2. *Lionel Eisenberg*
   3. *Jon Karyo*
+  
+      I started out by going through the tutorial to create a GCP homepage. However, after it was live for 2 days, I had already burned through $6 in credits. So we decided to simply use GitHub pages for our project's homepage. I helped James troubleshoot permission issues for the S3 bucket, and we figured out how to give users from other accounts bucket permissions. I also collaborated with Sanat to coordinate the logistics of the git cloning of the previous n commits. At this point, we realized that our previous approach was flawed in that it limited parallelism, so I researched the use of the lambda-git package within the lambda running environment to remotely clone the repo at each of the previous commits instead of using the bucket approach.
+  
   4. *James Lubowsky*
   
-      I have been focusing the majority of my attention on AWS.  As mentioned above, we plan on uploading previous git commits to an S3 bucket that our Amazon Lambdas can access.  For this checkpoint, I learned about and created an S3 bucket that we will use for the remainder of our project.  The name of the bucket is *jhu-cloud-computing-lubowsky-test*.  The bucket is public and allows anyone to read from it, but our group has credentials to write to the bucket.
+      I have been focusing the majority of my attention on AWS.  As mentioned above, we plan on uploading previous git commits to an S3 bucket that our Amazon Lambdas can access.  For this checkpoint, I learned and created an S3 bucket that we will probably use for the remainder of our project.  The name of the bucket is *jhu-cloud-computing-lubowsky-test*.  The bucket is public and allows anyone to read from it, but our group has credentials to write to the bucket.
       
-      I also created a bash script that uploads several files at once to the bucket and then deletes the files.  I wanted to just experiment with these functionalities, and successfully learned how to do so.  We plan on using a bash script on our local machines to execute all our tasks, so it was imperative that I learn how to preform these jobs from the command line using AWSCLI.  
+      I also created a bash script that uploads several files at once to the bucket and then deletes the files.  I wanted to just experiment with these functionalities, and successfully learned how to do so. 
