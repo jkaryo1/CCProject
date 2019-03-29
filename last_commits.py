@@ -12,6 +12,7 @@ proc = subprocess.Popen(("git clone " + repo_link).split())
 proc.wait()
 
 proc = subprocess.Popen(("mkdir versions").split())
+proc.wait()
 
 for i in range(num_commits):
     if i > 0:
@@ -29,3 +30,7 @@ bucket_name = "jhu-cloud-computing-lubowsky-test"
 aws_command = 'aws s3 cp versions/ s3://' + bucket_name + ' --recursive --exclude "*" --include "*"'
 
 aws_proc = subprocess.Popen((aws_command).split())
+aws_proc.wait()
+
+proc = subprocess.Popen(("rm -rf versions " + repo_name).split())
+proc.wait()
