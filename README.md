@@ -77,7 +77,7 @@ To accomplish our goal, we have developed a general plan of attack that we hope 
       
       I also created a bash script that uploads all files at once to the bucket and then deletes everything in the bucket.  I wanted to just experiment with these functionalities and I successfully learned how to do so since they are important for what we will be accomplishing.  Although the script is not very long, the entire process of learning about S3 buckets was time consuming and dealing with permissions was difficult as well.  
       
-** Next Steps **
+**Next Steps**
 
 1. *Configure Lambda Instances* 
  
