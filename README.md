@@ -10,8 +10,6 @@ This repository will be holding all the deploying and testing code:
 
 We will be using the following [repository](https://github.com/LionelEisenberg/CloudComp-Testing/) for to hold the code that we will be using our application on. For more specifics please see the README for that repository, but to summarize we have a rather basic python script that sorts an array of intergers and prints 
 
-## Instructions:
-
 ## Checkpoint 1:
 
 **Plan**
@@ -79,9 +77,9 @@ To accomplish our goal, we have developed a general plan of attack that we hope 
       
 **Next Steps**
 
-1. *Configure Lambda Instances* 
+1. *Configure/Write Lambda Instances* 
  
-    Our current plan is to have our lambda instances trigger in response to an upload to an s3 bucket. This will require us to configure an s3 bucket on-the-fly for the user and ensure that a lambda function is spun up for each of the commits that we want to test in the bucket.
+    Our current plan is to have lambda instances trigger in response to an upload to an s3 bucket. This will require us to configure an s3 bucket on-the-fly for the user and ensure that a lambda function is spun up for each of the commits that we want to test in the bucket.  We will also need to write such Lambda functions neccessary to completel our goal.
     
 2. *Write Testing Function*
 
@@ -89,4 +87,4 @@ To accomplish our goal, we have developed a general plan of attack that we hope 
     
  3. *Timing/Metrics*
  
-    The purpose of our project is to be able to quickly identify the failing commit in a codebase, hence our use of lambda functions testing all commits in parallel. We will time how long it takes for us to get meaningful results from each lambda function, as well as an end-to-end time. It will be useful for us to compare ourselves to the `git bisect run` command as a benchmark, and analyze not only the time/efficiency of our tool with respect to this existing tool, but also the cost of running `git bisect` vs several parallel lambda instances.
+    The purpose of our project is to be able to quickly identify the failing commit in a codebase, hence our use of Lambda functions testing all commits in parallel. We will time how long it takes for us to get meaningful results from each lambda function, as well as an end-to-end time. It will be useful for us to compare ourselves to the `git bisect run` command as a benchmark, and analyze not only the time/efficiency of our tool with respect to this existing tool, but also the cost of running `git bisect` vs several parallel Lambda instances.
