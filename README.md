@@ -54,7 +54,7 @@ To accomplish our goal, we have developed a general plan of attack that we hope 
 
   0. *General*
   
-      All group members contributed to brainstorming the best and most efficient way to put our project proposal into action. From researching the different cloud providers and comparing their pros and cons, to figuring out the best flow for our application. Finally we all participated in the right up of the README.
+      All group members contributed to brainstorming the best and most efficient way to put our project proposal into action. From researching the different cloud providers and comparing their pros and cons, to figuring out the best flow for our application. Finally we all participated in the write up of the README.
 
   1. *Sanat Deshpande*
   
@@ -77,3 +77,16 @@ To accomplish our goal, we have developed a general plan of attack that we hope 
       
       I also created a bash script that uploads all files at once to the bucket and then deletes everything in the bucket.  I wanted to just experiment with these functionalities and I successfully learned how to do so since they are important for what we will be accomplishing.  Although the script is not very long, the entire process of learning about S3 buckets was time consuming and dealing with permissions was difficult as well.  
       
+** Next Steps **
+
+1. *Configure Lambda Instances* 
+ 
+    Our current plan is to have our lambda instances trigger in response to an upload to an s3 bucket. This will require us to configure an s3 bucket on-the-fly for the user and ensure that a lambda function is spun up for each of the commits that we want to test in the bucket.
+    
+2. *Write Testing Function*
+
+    We need to write the actual code that will fetch the correct version/commit of the repository from an s3 bucket, and run the user's testing scripts. A secondary challenge will be figuring out how to get the results back to the user. We could either try communicating this back by writing to the s3 bucket, or through some means that communicates with the user directly. More research into the specifics of this is required.
+    
+ 3. *Timing/Metrics*
+ 
+    The purpose of our project is to be able to quickly identify the failing commit in a codebase, hence our use of lambda functions testing all commits in parallel. We will time how long it takes for us to get meaningful results from each lambda function, as well as an end-to-end time. It will be useful for us to compare ourselves to the `git bisect run` command as a benchmark, and analyze not only the time/efficiency of our tool with respect to this existing tool, but also the cost of running `git bisect` vs several parallel lambda instances.
