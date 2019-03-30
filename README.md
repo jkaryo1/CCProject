@@ -79,7 +79,7 @@ To accomplish our goal, we have developed a general plan of attack that we hope 
 
 1. *Configure/Write Lambda Instances* 
  
-    Our current plan is to have lambda instances trigger in response to an upload to an s3 bucket. This will require us to configure an s3 bucket on-the-fly for the user and ensure that a lambda function is spun up for each of the commits that we want to test in the bucket.  We will also need to write such Lambda functions neccessary to completel our goal.
+    Our current plan is to have lambda instances trigger in response to an upload to an s3 bucket. This will require us to configure an s3 bucket on-the-fly for the user and ensure that a lambda function is spun up for each of the commits that we want to test in the bucket.  We will also need to write such Lambda functions neccessary to complete our goal.
     
 2. *Write Testing Function*
 
