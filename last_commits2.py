@@ -11,30 +11,31 @@ bucket_name = sys.argv[3]
 repo_name = repo_link.split("/")[-1].split('.')[:-1][0] #this is convoluted
 
 
+
+def upload(files, bucket_name, version):
+    s3 = boto3.resource('s3')
+    for f in files:
+        dest = os.path.join(str(version),"/".join(f.split("/")[1:]))
+        s3.meta.client.upload_file(f, bucket_name, dest)
+
 proc = subprocess.Popen(("git clone " + repo_link).split())
 proc.wait()
 
-proc = subprocess.Popen(("mkdir versions").split())
-proc.wait()
 
 for i in range(num_commits):
     if i > 0:
         proc = subprocess.Popen(("git -C " + repo_name + " checkout HEAD~1").split())
         proc.wait()
 
-    # copy_proc = subprocess.Popen(("rsync -av " + repo_name + " versions/ --exclude " + repo_name + "/.git").split())
-    # copy_proc.wait()
-    #
-    rename_proc = subprocess.Popen(("mv " + repo_name + " " + str(i)).split())
-    rename_proc.wait()
-
-    aws_command = 'aws s3 cp ' + str(i) + ' s3://' + bucket_name + ' --recursive --exclude "*"'
-
-    aws_proc = subprocess.Popen((aws_command).split())
-    aws_proc.wait()
-
-    rename_proc = subprocess.Popen(("mv " + str(i) + " " + repo_name).split())
-    rename_proc.wait()
+    to_upload = []
+    for root, dirs, files in os.walk(repo_name):
+        if '.git' in root.split("/"):
+            continue
+        for f in files:
+            to_upload.append(os.path.join(root, f))
+    
+    for up in to_upload:
+        upload(to_upload, bucket_name, i)
 
 proc = subprocess.Popen(("rm -rf " + repo_name).split())
 proc.wait()
