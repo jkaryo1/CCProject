@@ -95,8 +95,20 @@ To accomplish our goal, we have developed a general plan of attack that we hope 
 
 To accomplish our goal, we generated a general plan of attack that we hope to follow.
 
-1.  *Trigger Lambda on Upload to S3 Bucket* - For our project, we are uploading multiple previous commits to a single S3 source bucket (now properly named jhu-cloud-source2).  When a file gets uploaded, we want to trigger a testing lambda on the file, so it is imperative that we understand how to properly AWS Lambda with S3.
+1.  *Trigger Lambda on Upload to S3 Bucket* - For our project, we are uploading multiple previous commits to a single S3 source bucket (now properly named jhu-cloud-source2).  When a file gets uploaded, we want to trigger a testing lambda on the file, so it is imperative that we understand how to properly use AWS Lambda with S3.
 
-2.  *Use Lambda to upload files to an S3 bucket* - We plan on writing the sucess rate of a particular test to another bucket for simple ease of access for the user.  To accomplish this goal, we plan on using boto3 to integrate functionality.
+2.  *Use Lambda to upload files to an S3 bucket* - We plan on writing the sucess rate of a particular test to another bucket for simple ease of access for the user.  To accomplish this goal, we plan on using [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html#) to integrate functionality.
 
-3.  
+3.  *Develop Proper Plan for Timing* - We also wish to develop a proper way to time our testing method that uses AWS Lambda.  We don't plan on collecting data points for testing for this checkpoint, but we want to have a solid method of doing so for when we begin to compare methods.
+
+**Who Has Done What**
+
+0.  *General*
+
+1.  *Sanat Desphande*
+
+2.  *Lionel Eisenberg*
+
+3.  *Jon Karyo*
+
+4.  *James Lubowsky*
