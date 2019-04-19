@@ -88,3 +88,11 @@ To accomplish our goal, we have developed a general plan of attack that we hope 
  3. *Timing/Metrics*
  
     The purpose of our project is to be able to quickly identify the failing commit in a codebase, hence our use of Lambda functions testing all commits in parallel. We will time how long it takes for us to get meaningful results from each lambda function, as well as an end-to-end time. It will be useful for us to compare ourselves to the `git bisect run` command as a benchmark, and analyze not only the time/efficiency of our tool with respect to this existing tool, but also the cost of running `git bisect` vs several parallel Lambda instances.
+
+## Checkpoint 2:
+
+**Plan**
+
+1.  *Trigger Lambda on Upload to S3 Bucket* - For our project, we are uploading multiple previous commits to a single S3 source bucket (now properly named jhu-cloud-source2).  When a file gets uploaded, we want to trigger a testing lambda on the file, so it is imperative that we understand how to properly AWS Lambda with S3.
+
+2.
