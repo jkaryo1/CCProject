@@ -19,14 +19,15 @@ for i in range(num_commits):
         proc = subprocess.Popen(("git -C " + repo_name + " checkout HEAD~1").split())
         proc.wait()
 
-    copy_proc = subprocess.Popen(("cp -r " + repo_name + " versions/").split())
+    copy_proc = subprocess.Popen(("rsync -av " + repo_name + " versions/ --exclude " + repo_name + "/.git").split())
     copy_proc.wait()
 
     rename_proc = subprocess.Popen(("mv versions/" + repo_name + " versions/" + str(i)).split())
     rename_proc.wait()
 
+
 #THIS BUCKET NAME NEEDS TO NOT BE HARDCODED
-bucket_name = "jhu-cloud-computing-lubowsky-test"
+bucket_name = sys.argv[3] #"jhu-cloud-computing-lubowsky-test"
 aws_command = 'aws s3 cp versions/ s3://' + bucket_name + ' --recursive --exclude "*" --include "*"'
 
 aws_proc = subprocess.Popen((aws_command).split())
