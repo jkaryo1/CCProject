@@ -92,10 +92,11 @@ To accomplish our goal, we have developed a general plan of attack that we hope 
 ## Checkpoint 2:
 
 **Plan**
+
 To accomplish our goal, we generated a general plan of attack that we hope to follow.
 
 1.  *Trigger Lambda on Upload to S3 Bucket* - For our project, we are uploading multiple previous commits to a single S3 source bucket (now properly named jhu-cloud-source2).  When a file gets uploaded, we want to trigger a testing lambda on the file, so it is imperative that we understand how to properly AWS Lambda with S3.
 
 2.  *Use Lambda to upload files to an S3 bucket* - We plan on writing the sucess rate of a particular test to another bucket for simple ease of access for the user.  To accomplish this goal, we plan on using boto3 to integrate functionality.
 
-
+3.  
