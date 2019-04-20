@@ -7,6 +7,7 @@ This repository will be holding all the deploying and testing code:
   - *last_commits.py*: Python script that clones the specified repository and makes copies of each of the past n commits (including the current one) in separate folders. These versions are all uploaded to an aws bucket for testing. To run: `python last_commits.py <link_to_repository> <number_of_commits>`
   - *add_remove_bucket*: Bash script that adds all files in a directory to an S3 bucket and then removes everything in the bucket.  To run:  `./add_remove_bucket`, however, since our bucket is private, other users should get an Access Denied error.
   - *test_sorting.py*: Python script that currently has hard coded values to test the Main Sorting Function repository we want to test. This file is a dummy "proof of concept" that should vary when converted to lambda functions. To run: `python test_sorting.py`.
+  - *lambdaFunction.py*: Python function that runs on a lambda instance. It uses **boto3** to download files from an s3 bucket, tests these files, and uses upload the results to another s3 bucket (see [Checkpoint 2](#Checkpoint-2)). We will be posting more detailed instructions for how to deploy this lambda to your own lambda function.
 
 We will be using the following [repository](https://github.com/LionelEisenberg/CloudComp-Testing/) for to hold the code that we will be using our application on. For more specifics please see the README for that repository, but to summarize we have a rather basic python script that sorts an array of intergers and prints 
 
@@ -97,7 +98,7 @@ To accomplish our goal, we generated a general plan of attack that we hope to fo
 
 1.  *Trigger Lambda on Upload to S3 Bucket* - For our project, we are uploading multiple previous commits to a single S3 source bucket (now properly named jhu-cloud-source2).  When a file gets uploaded, we want to trigger a testing lambda on the file, so it is imperative that we understand how to properly use AWS Lambda with S3.
 
-2.  *Use Lambda to upload files to an S3 bucket* - We plan on writing the sucess rate of a particular test to another bucket for simple ease of access for the user.  To accomplish this goal, we plan on using [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html#) to integrate functionality.
+2.  *Use Lambda to upload files to an S3 bucket* - We plan on writing the success of a particular test for a particular commit to another bucket for simple ease of access for the user.  To accomplish this goal, we plan on using [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html#) to integrate functionality.
 
 3.  *Develop Proper Plan for Timing* - We also wish to develop a proper way to time our testing method that uses AWS Lambda.  We don't plan on collecting data points for testing for this checkpoint, but we want to have a solid method of doing so for when we begin to compare methods.
 
@@ -108,6 +109,12 @@ To accomplish our goal, we generated a general plan of attack that we hope to fo
 1.  *Sanat Desphande*
 
 2.  *Lionel Eisenberg*
+
+I mainly worked on creating the Lambda function and making sure it had all the proper access rights to target and source S3 buckets. This [lambda function](arn:aws:lambda:us-east-1:455199885252:function:Lambda-Tester) gets triggered when any file with a .zip suffix is added to the [source bucket](https://s3.console.aws.amazon.com/s3/buckets/jhu-cloud-source2/?region=us-east-1&tab=overview). The trigger event makes the Lambda function download the added zip file from the s3 bucket locally, it then unzips the file to get the relevant files that need to be tested. The files are then tested with input also taken from the [source bucket](https://s3.console.aws.amazon.com/s3/buckets/jhu-cloud-source2/?region=us-east-1&tab=overview), and the results are dumped into a json file and pushed to our [target bucket](https://s3.console.aws.amazon.com/s3/object/jhu-cloud-target2/0.json?region=us-east-1&tab=overview). 
+
+One of the big challenges we encountered is using proper trigger events for the lambda, we ended up choosing to zip files locally and unzip them on the lambda as it made more sense scaling wise. Indeed, even though the unziping adds overhead to the lambda tests, for larger codebases the overhead is negligible and having zipped files makes uploading and downloading faster as data is compressed. Other files uploaded to our source bucket such as our testing input or other testing files will not trigger the lambda unless there is any zip files included.
+
+Another big challenge we encountered was giving our lambda read/write access to our target and source buckets. The way we are currently doing it can definitely be improved for our next checkpoint as we currently just have completely public buckets that can be accessed by anyone. Obviously since the files on these buckets are very shortlived, the security concern isn't enormous.
 
 3.  *Jon Karyo*
 
