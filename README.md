@@ -9,7 +9,7 @@ This repository will be holding all the deploying and testing code:
   - *test_sorting.py*: Python script that currently has hard coded values to test the Main Sorting Function repository we want to test. This file is a dummy "proof of concept" that should vary when converted to lambda functions. To run: `python test_sorting.py`.
   - *lambdaFunction.py*: Python function that runs on a lambda instance. It uses **boto3** to download files from an s3 bucket, tests these files, and uses upload the results to another s3 bucket (see [Checkpoint 2](#Checkpoint-2)). We will be posting more detailed instructions for how to deploy this lambda to your own lambda function.
 
-We will be using the following [repository](https://github.com/LionelEisenberg/CloudComp-Testing/) for to hold the code that we will be using our application on. For more specifics please see the README for that repository, but to summarize we have a rather basic python script that sorts an array of intergers and prints 
+We will be using the following [repository](https://github.com/LionelEisenberg/CloudComp-Testing/) for to hold the code that we will be using our application on. For more specifics please see the README for that repository, but to summarize we have a rather basic python script that sorts an array of integers and prints 
 
 ## Checkpoint 1:
 
@@ -110,7 +110,7 @@ We all researched AWS Lambda and S3 buckets.  We all contributed towards the cod
 
 1.  *Sanat Desphande*
 
-Worked back and forth with Lionel and James on how to refine our uploading script to correctly upload files to our s3 bucket such that they could be used by our lambda functions (ie programmatically setting permissions and such). I investigate the suggestions from the feedback as well. (1) It was suggested that we use `os.system` to execute commands since we are not doing anything with the command line output, but the reason I used the `subprocess` library was that `os.system` does not in fact wait until the process is finished executing before moving on to the next one (each step was dependent on the next). (2) It was suggested that we use the `boto3` API instead of the AWS CLI, and this made our code significanlty more modular, and much easier to work with - thank you! I rewrote all the portions dealing with file upload with `boto3` and this also made permission-setting easier to handle and check for. The last thing I experimented with was seeing if it would be quicker to zip the repositories before uploading them, as IO is our bottleneck. This was done in tandem with Lionel/James since we were unsure how the overhead of having a Lambda instance unzip a file would affect our pipeline. 
+Worked back and forth with Lionel, James, and Jon on how to refine our uploading script to correctly upload files to our s3 bucket such that they could be used by our lambda functions (ie programmatically setting permissions and such). I investigate the suggestions from the feedback as well. (1) It was suggested that we use `os.system` to execute commands since we are not doing anything with the command line output, but the reason I used the `subprocess` library was that `os.system` does not in fact wait until the process is finished executing before moving on to the next one (each step was dependent on the next). (2) It was suggested that we use the `boto3` API instead of the AWS CLI, and this made our code significanlty more modular, and much easier to work with - thank you! I rewrote all the portions dealing with file upload with `boto3` and this also made permission-setting easier to handle and check for. The last thing I experimented with was seeing if it would be quicker to zip the repositories before uploading them, as IO is our bottleneck. This was done in tandem with Lionel/James since we were unsure how the overhead of having a Lambda instance unzip a file would affect our pipeline. 
 
 2.  *Lionel Eisenberg*
 
@@ -121,6 +121,7 @@ One of the big challenges we encountered is using proper trigger events for the 
 Another big challenge we encountered was giving our lambda read/write access to our target and source buckets. The way we are currently doing it can definitely be improved for our next checkpoint as we currently just have completely public buckets that can be accessed by anyone. Obviously since the files on these buckets are very shortlived, the security concern isn't enormous.
 
 3.  *Jon Karyo*
+I started off working primarily with Lionel and James figuring out how to set up the Lambdas and allow the functions to access and edit the files in our S3 buckets. I then assisted Sanat in figuring out how to best upload a repo’s files to the S3 bucket, specifically with optimizations and looking into the use of Boto3. Lastly, I wrote a script that would allow us to automate the git bisect run process and benchmark it against our Lambda-based solution.
 
 4.  *James Lubowsky*
 
