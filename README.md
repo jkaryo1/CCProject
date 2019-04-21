@@ -102,6 +102,16 @@ To accomplish our goal, we generated a general plan of attack that we hope to fo
 
 3.  *Develop Proper Plan for Timing* - We also wish to develop a proper way to time our testing method that uses AWS Lambda.  We don't plan on collecting data points for testing for this checkpoint, but we want to have a solid method of doing so for when we begin to compare methods.
 
+**Current Status Since Midterm Presentations**
+
+* Created Lambda testing function
+* Integrated Lambda and S3 Bucket so that Lambdas trigger on upload to source bucket
+* Created a target bucket
+* Lambdas upload results of tests to the target bucket
+* Used boto3 instead of AWS CLI for our uploading scripts (as per our feedback)
+* Zipped repositories before uploading
+* Developed a proper way to analyze our approach to testing when compared to git-bisect
+
 **Who Has Done What**
 
 0.  *General*
