@@ -7,8 +7,9 @@ This repository will be holding all the deploying and testing code:
   - *last_commits.py*: Python script that clones the specified repository and makes copies of each of the past n commits (including the current one) in separate folders. These versions are all uploaded to an aws bucket for testing. To run: `python last_commits.py <link_to_repository> <number_of_commits>`
   - *add_remove_bucket*: Bash script that adds all files in a directory to an S3 bucket and then removes everything in the bucket.  To run:  `./add_remove_bucket`, however, since our bucket is private, other users should get an Access Denied error.
   - *test_sorting.py*: Python script that currently has hard coded values to test the Main Sorting Function repository we want to test. This file is a dummy "proof of concept" that should vary when converted to lambda functions. To run: `python test_sorting.py`.
+  - *lambdaFunction.py*: Python function that runs on a lambda instance. It uses **boto3** to download files from an s3 bucket, tests these files, and uses upload the results to another s3 bucket (see [Checkpoint 2](#Checkpoint-2)). We will be posting more detailed instructions for how to deploy this lambda to your own lambda function.
 
-We will be using the following [repository](https://github.com/LionelEisenberg/CloudComp-Testing/) for to hold the code that we will be using our application on. For more specifics please see the README for that repository, but to summarize we have a rather basic python script that sorts an array of intergers and prints 
+We will be using the following [repository](https://github.com/LionelEisenberg/CloudComp-Testing/) for to hold the code that we will be using our application on. For more specifics please see the README for that repository, but to summarize we have a rather basic python script that sorts an array of integers and prints 
 
 ## Checkpoint 1:
 
@@ -97,18 +98,51 @@ To accomplish our goal, we generated a general plan of attack that we hope to fo
 
 1.  *Trigger Lambda on Upload to S3 Bucket* - For our project, we are uploading multiple previous commits to a single S3 source bucket (now properly named jhu-cloud-source2).  When a file gets uploaded, we want to trigger a testing lambda on the file, so it is imperative that we understand how to properly use AWS Lambda with S3.
 
-2.  *Use Lambda to upload files to an S3 bucket* - We plan on writing the sucess rate of a particular test to another bucket for simple ease of access for the user.  To accomplish this goal, we plan on using [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html#) to integrate functionality.
+2.  *Use Lambda to upload files to an S3 bucket* - We plan on writing the success of a particular test for a particular commit to another bucket for simple ease of access for the user.  To accomplish this goal, we plan on using [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html#) to integrate functionality.
 
 3.  *Develop Proper Plan for Timing* - We also wish to develop a proper way to time our testing method that uses AWS Lambda.  We don't plan on collecting data points for testing for this checkpoint, but we want to have a solid method of doing so for when we begin to compare methods.
+
+**Current Status Since Midterm Presentations**
+
+* Created Lambda testing function
+* Integrated Lambda and S3 Bucket so that Lambdas trigger on upload to source bucket
+* Created a target bucket
+* Lambdas upload results of tests to the target bucket
+* Used boto3 instead of AWS CLI for our uploading scripts (as per our feedback)
+* Zipped repositories before uploading
+* Developed a proper way to analyze our approach to testing when compared to git-bisect
 
 **Who Has Done What**
 
 0.  *General*
 
+We all researched AWS Lambda and S3 buckets.  We all contributed towards the code base and helped each other debug.
+
 1.  *Sanat Desphande*
+
+Worked back and forth with Lionel, James, and Jon on how to refine our uploading script to correctly upload files to our s3 bucket such that they could be used by our lambda functions (ie programmatically setting permissions and such). I investigate the suggestions from the feedback as well. (1) It was suggested that we use `os.system` to execute commands since we are not doing anything with the command line output, but the reason I used the `subprocess` library was that `os.system` does not in fact wait until the process is finished executing before moving on to the next one (each step was dependent on the next). (2) It was suggested that we use the `boto3` API instead of the AWS CLI, and this made our code significanlty more modular, and much easier to work with - thank you! I rewrote all the portions dealing with file upload with `boto3` and this also made permission-setting easier to handle and check for. The last thing I experimented with was seeing if it would be quicker to zip the repositories before uploading them, as IO is our bottleneck. This was done in tandem with Lionel/James since we were unsure how the overhead of having a Lambda instance unzip a file would affect our pipeline. Lastly, I made it so that the script ignores all `.git` files when it zips/uploads the repository (we don't need these, and they increase our bottleneck).
 
 2.  *Lionel Eisenberg*
 
+I mainly worked on creating the Lambda function and making sure it had all the proper access rights to target and source S3 buckets. This [lambda function](arn:aws:lambda:us-east-1:455199885252:function:Lambda-Tester) gets triggered when any file with a .zip suffix is added to the [source bucket](https://s3.console.aws.amazon.com/s3/buckets/jhu-cloud-source2/?region=us-east-1&tab=overview). The trigger event makes the Lambda function download the added zip file from the s3 bucket locally, it then unzips the file to get the relevant files that need to be tested. The files are then tested with input also taken from the [source bucket](https://s3.console.aws.amazon.com/s3/buckets/jhu-cloud-source2/?region=us-east-1&tab=overview), and the results are dumped into a json file and pushed to our [target bucket](https://s3.console.aws.amazon.com/s3/object/jhu-cloud-target2/0.json?region=us-east-1&tab=overview). 
+
+One of the big challenges we encountered is using proper trigger events for the lambda, we ended up choosing to zip files locally and unzip them on the lambda as it made more sense scaling wise. Indeed, even though the unziping adds overhead to the lambda tests, for larger codebases the overhead is negligible and having zipped files makes uploading and downloading faster as data is compressed. Other files uploaded to our source bucket such as our testing input or other testing files will not trigger the lambda unless there is any zip files included.
+
+Another big challenge we encountered was giving our lambda read/write access to our target and source buckets. The way we are currently doing it can definitely be improved for our next checkpoint as we currently just have completely public buckets that can be accessed by anyone. Obviously since the files on these buckets are very shortlived, the security concern isn't enormous.
+
 3.  *Jon Karyo*
 
+I started off working primarily with Lionel and James figuring out how to set up the Lambdas and allow the functions to access and edit the files in our S3 buckets. I then assisted Sanat in figuring out how to best upload a repo’s files to the S3 bucket, specifically with optimizations (ignoring the .git folder, determining the most efficient way to checkout and upload each commit, etc.) and looking into the use of Boto3. Lastly, I wrote a script that would allow us to automate the git bisect run process and benchmark it against our Lambda-based solution.
+
 4.  *James Lubowsky*
+
+I mainly worked with Lionel for this checkpoint and devoted most of my time working with Lambdas and S3 buckets again.  Using the AWS console, I tested how to set up Lambdas so that they would trigger when on object was put into a bucket.  The documentation on Amazon's website walked us through how to create such events and I used their framework to accomplish our task.  In the end, we decided to add the Lambda from the command line using the AWS CLI because we were able to load libraries that will be needed for our code to run properly.
+
+Again, dealing with permissions was a large challenge.  When creating the testing lambda, we kept on recieving 403 Forbidden errors due issues regarding who owned different buckets/files.  To get around this issue, we made all of our buckets completely public.  Although this is a security concern and will be addressed later, for this point in the project, it is okay since we are more concerned with collecting data.
+
+**Next Steps**
+
+1.  *Properly Retrieve Timing Metrics* - As of right now, we are timing how long it takes to run tests using AWS Lambda by looking at the time we first run the script and the timestamp of when the file gets dumped into the target bucket.  This is a manual process and we believe is not terribly practical.  If time permits, we would want to post this information on a simple web page instead of looking into the bucket. But for the purpose of determining the speed of the process, we will be examinig the time stamps.
+
+2.  *Optimize Code and Minimize I/O* - In order to properly determine whether our proposed solution is superior to git-bisect, we must optimize the code in terms of speed and cost (since it can be expensive to run so many Lambdas).  The main bottleneck in our project is uploading files to different buckets.  If we can minimize the amount of writing to buckets, we can make the whole process faster.
+

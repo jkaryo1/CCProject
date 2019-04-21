@@ -6,8 +6,9 @@ import subprocess
     bucket we created and would cherry pick a specific commit to test on.
 '''
 
+# Results seem to begin significance when input size is ~10,000
 FILEPATH = "../CloudComp-Testing/main_file.py"
-TESTPATH = "../CCProject/input_10"
+TESTPATH = "../CCProject/input_10000"
 
 try:
     with open(TESTPATH) as f:
@@ -17,7 +18,22 @@ try:
 except EnvironmentError:
     print("error")
 
-sorting_func = "bubble"
-result = subprocess.run(['python3.7', FILEPATH, sorting_func, TESTPATH], stdout=subprocess.PIPE)
-array = list(map(int, result.stdout.decode('utf-8').splitlines()))
-print(array == arraySorted)
+try:
+    sorting_func = "bubble"
+    result = subprocess.run(['python3.7', FILEPATH, sorting_func, TESTPATH], stdout=subprocess.PIPE)
+    array = list(map(int, result.stdout.decode('utf-8').splitlines()))
+    if array != arraySorted:
+        exit(1)
+    sorting_func = "selection"
+    result = subprocess.run(['python3.7', FILEPATH, sorting_func, TESTPATH], stdout=subprocess.PIPE)
+    array = list(map(int, result.stdout.decode('utf-8').splitlines()))
+    if array != arraySorted:
+        exit(1)
+    sorting_func = "insertion"
+    result = subprocess.run(['python3.7', FILEPATH, sorting_func, TESTPATH], stdout=subprocess.PIPE)
+    array = list(map(int, result.stdout.decode('utf-8').splitlines()))
+    if array != arraySorted:
+        exit(1)
+except:
+    exit(1)
+exit(0)
