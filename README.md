@@ -121,6 +121,7 @@ One of the big challenges we encountered is using proper trigger events for the 
 Another big challenge we encountered was giving our lambda read/write access to our target and source buckets. The way we are currently doing it can definitely be improved for our next checkpoint as we currently just have completely public buckets that can be accessed by anyone. Obviously since the files on these buckets are very shortlived, the security concern isn't enormous.
 
 3.  *Jon Karyo*
+
 I started off working primarily with Lionel and James figuring out how to set up the Lambdas and allow the functions to access and edit the files in our S3 buckets. I then assisted Sanat in figuring out how to best upload a repo’s files to the S3 bucket, specifically with optimizations and looking into the use of Boto3. Lastly, I wrote a script that would allow us to automate the git bisect run process and benchmark it against our Lambda-based solution.
 
 4.  *James Lubowsky*
