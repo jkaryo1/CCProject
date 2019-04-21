@@ -106,6 +106,8 @@ To accomplish our goal, we generated a general plan of attack that we hope to fo
 
 0.  *General*
 
+We all researched AWS Lambda and S3 buckets.  We all contributed towards the code base and helped each other debug.
+
 1.  *Sanat Desphande*
 
 2.  *Lionel Eisenberg*
@@ -119,3 +121,14 @@ Another big challenge we encountered was giving our lambda read/write access to 
 3.  *Jon Karyo*
 
 4.  *James Lubowsky*
+
+I mainly worked with Lionel for this checkpoint and devoted most of my time working with Lambdas and S3 buckets again.  Using the AWS console, I tested how to set up Lambdas so that they would trigger when on object was put into a bucket.  The documentation on Amazon's website walked us through how to create such events and I used their framework to accomplish our task.  In the end, we decided to add the Lambda from the command line using the AWS CLI because we were able to load libraries that will be needed for our code to run properly.
+
+Again, dealing with permissions was a large challenge.  When creating the testing lambda, we kept on recieving 403 Forbidden errors due issues regarding who owned different buckets/files.  To get around this issue, we made all of our buckets completely public.  Although this is a security concern and will be addressed later, for this point in the project, it is okay since we are more concerned with collecting data.
+
+**Next Steps**
+
+1.  *Properly Retrieve Timing Metrics* - As of right now, we are timing how long it takes to run tests using AWS Lambda by looking at the time we first run the script and the timestamp of when the file gets dumped into the target bucket.  This is a manual process and we believe is not terribly practical.  If time permits, we would want to post this information on a simple web page instead of looking into the bucket. But for the purpose of determining the speed of the process, we will be examinig the time stamps.
+
+2.  *Optimize Code and Minimize I/O* - In order to properly determine whether our proposed solution is superior to git-bisect, we must optimize the code in terms of speed and cost (since it can be expensive to run so many Lambdas).  The main bottleneck in our project is uploading files to different buckets.  If we can minimize the amount of writing to buckets, we can make the whole process faster.
+
