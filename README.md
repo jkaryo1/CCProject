@@ -122,7 +122,7 @@ Another big challenge we encountered was giving our lambda read/write access to 
 
 3.  *Jon Karyo*
 
-I started off working primarily with Lionel and James figuring out how to set up the Lambdas and allow the functions to access and edit the files in our S3 buckets. I then assisted Sanat in figuring out how to best upload a repo’s files to the S3 bucket, specifically with optimizations and looking into the use of Boto3. Lastly, I wrote a script that would allow us to automate the git bisect run process and benchmark it against our Lambda-based solution.
+I started off working primarily with Lionel and James figuring out how to set up the Lambdas and allow the functions to access and edit the files in our S3 buckets. I then assisted Sanat in figuring out how to best upload a repo’s files to the S3 bucket, specifically with optimizations (ignoring the .git folder, determining the most efficient way to checkout and upload each commit, etc.) and looking into the use of Boto3. Lastly, I wrote a script that would allow us to automate the git bisect run process and benchmark it against our Lambda-based solution.
 
 4.  *James Lubowsky*
 
