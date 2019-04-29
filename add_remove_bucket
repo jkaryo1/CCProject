@@ -5,4 +5,4 @@
 
 #aws s3 ls s3://jhu-cloud-source/
 
-aws s3 rm s3://jhu-cloud-source/ --recursive --include "*"
+aws s3 rm s3://jhu-cloud-source2/ --recursive --include "*"

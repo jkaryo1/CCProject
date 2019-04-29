@@ -1,0 +1,24 @@
+<div *ngIf="notSubmitted == true" class="container">
+    <h1>Input Data</h1>
+    <form (ngSubmit)="onSubmit()" #homeForm="ngForm">
+      <div class="form-group">
+        <label for="github_address">Github Address</label>
+        <input type="text" class="form-control" [(ngModel)]="model.git_address"
+         id="github_address" name="github_address" #name="ngModel" required>
+      </div>
+
+      <div class="form-group">
+        <label for="num_commits">Number of commits</label>
+        <select class="form-control" id="num_commits" [(ngModel)]="model.num_commits"
+        name="num_commits" #name="ngModel" required>
+          <option *ngFor="let num of numbers"  [value]="num">{{num}}</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-success" [disabled]="!homeForm.valid" >Submit</button>
+
+    </form>
+</div>
+
+<div *ngIf="loading == true" class="container">
+  <p>loading please wait...</p>
+</div>
