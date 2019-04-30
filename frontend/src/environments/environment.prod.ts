@@ -1,4 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
   url: "https://flask-cloud-comp-back.herokuapp.com/"
 };
