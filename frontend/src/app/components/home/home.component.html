@@ -22,3 +22,8 @@
 <div *ngIf="loading == true" class="container">
   <p>loading please wait...</p>
 </div>
+
+<!-- DELETE -->
+<div *ngIf="temp == true" class="container">
+  <pre>{{results | json}}</pre>
+</div>

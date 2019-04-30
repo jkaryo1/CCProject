@@ -13,10 +13,9 @@ export class HomeComponent implements OnInit {
   public numbers: number[];
   public notSubmitted: boolean;
   public loading: boolean;
-  public success: boolean;
+  public results: boolean;
+  public temp: boolean; // DELETE
   model = new Info("", null);
-
-
 
   constructor(
     private homeService: HomeService,
@@ -30,10 +29,22 @@ export class HomeComponent implements OnInit {
   }
 
   async onSubmit() {
+    this.notSubmitted = false
+    this.loading = true
     this.homeService.upload(this.model).subscribe(
       data => {
-        this.notSubmitted = false
-        this.loading = true
+        this.homeService.getResults(this.model.num_commits).subscribe(
+          data => {
+            this.results = data;
+            this.homeService.delete_source(myGlobals.source_bucket, '.zip').subscribe()
+            this.homeService.delete_source(myGlobals.target_bucket, '.json').subscribe()
+            this.loading = false
+            this.temp = true
+          },
+          error => {
+            this.router.navigate(['/error'])
+          }
+        )
       },
       error => {
         this.router.navigate(['/error'])

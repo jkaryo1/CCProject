@@ -1,6 +1,8 @@
 import os
 import subprocess
 import boto3
+import time
+import json
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
@@ -80,21 +82,57 @@ def last_commits():
 @app.route('/delete_source', methods=['GET'])
 def delete_source():
     bucket_name = request.args.get('bucket_name', None)
+    suffix = request.args.get('suffix', None)
 
     s3 = boto3.resource('s3')
     bucket = s3.Bucket(bucket_name)
     objects_to_delete = []
     for obj in bucket.objects.all():
-        if obj.key.endswith('.zip'):
+        if obj.key.endswith(suffix):
             objects_to_delete.append({'Key': obj.key})
 
-    bucket.delete_objects(
-        Delete={
-            'Objects': objects_to_delete
-        }
-    )
+    if objects_to_delete != []:
+        bucket.delete_objects(
+            Delete={
+                'Objects': objects_to_delete
+            }
+        )
 
     return jsonify(success=True)
 
+@app.route('/get_results', methods=['GET'])
+def get_results():
+    timeout = 10 #in seconds
+    bucket_name = request.args.get('bucket_name', None)
+    num_commits = int(request.args.get('num_commits', None))
+
+    s3 = boto3.resource('s3')
+    bucket = s3.Bucket(bucket_name)
+    all_buckets = bucket.objects.all()
+    length = sum(1 for _ in all_buckets)
+    while length != num_commits and timeout > 0:
+        print(length, num_commits)
+        time.sleep(0.2) #sleep 200 ms
+        timeout -= 0.2
+        all_buckets = bucket.objects.all()
+        length = sum(1 for _ in all_buckets)
+
+    if timeout == 0:
+        abort(504)
+
+    results = getJson(bucket_name, num_commits, s3)
+    return jsonify(results)
+
+def getJson(bucket_name, num_commits, s3):
+    result = {}
+    for i in range(0, num_commits):
+        content_object = s3.Object(bucket_name, str(i) + '.json')
+        file_content = content_object.get()['Body'].read().decode('utf-8')
+        json_content = json.loads(file_content)
+        json_content['TIMESTAMP'] = content_object.last_modified
+        result[i] = json_content
+
+    return result
+
 if __name__ == '__main__':
-     app.run(port=5002)
+     app.run(host='0.0.0.0', port=5002)
