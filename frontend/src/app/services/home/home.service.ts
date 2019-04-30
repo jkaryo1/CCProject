@@ -29,7 +29,7 @@ export class HomeService {
     return this.http.get(this.baseUrl + "/get_results", {params})
   }
 
-  delete_source(bucket_name: string, suffix: String) {
+  delete_source(bucket_name: string, suffix: string) {
     const params = new HttpParams()
       .set('bucket_name', bucket_name)
       .set('suffix', suffix);
