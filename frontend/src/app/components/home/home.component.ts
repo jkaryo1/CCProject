@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   public numbers: number[];
   public notSubmitted: boolean;
   public loading: boolean;
-  public results: boolean;
+  public results: Object;
   public temp: boolean; // DELETE
   model = new Info("", null);
 
