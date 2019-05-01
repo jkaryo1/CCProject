@@ -3,6 +3,7 @@ import subprocess
 import boto3
 import time
 import json
+import config
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
@@ -29,7 +30,7 @@ def last_commits():
     the destination file.
     '''
     def upload(files, bucket_name, version):
-        s3 = boto3.resource('s3')
+        s3 = boto3.resource('s3', aws_access_key_id=config.ACCESS_ID, aws_secret_access_key= config.ACCESS_KEY)
         files = " ".join(files)
 
         #zips relevant files
@@ -84,7 +85,7 @@ def delete_source():
     bucket_name = request.args.get('bucket_name', None)
     suffix = request.args.get('suffix', None)
 
-    s3 = boto3.resource('s3')
+    s3 = boto3.resource('s3', aws_access_key_id=config.ACCESS_ID, aws_secret_access_key= config.ACCESS_KEY)
     bucket = s3.Bucket(bucket_name)
     objects_to_delete = []
     for obj in bucket.objects.all():
@@ -106,7 +107,7 @@ def get_results():
     bucket_name = request.args.get('bucket_name', None)
     num_commits = int(request.args.get('num_commits', None))
 
-    s3 = boto3.resource('s3')
+    s3 = boto3.resource('s3', aws_access_key_id=config.ACCESS_ID, aws_secret_access_key= config.ACCESS_KEY)
     bucket = s3.Bucket(bucket_name)
     all_buckets = bucket.objects.all()
     length = sum(1 for _ in all_buckets)
