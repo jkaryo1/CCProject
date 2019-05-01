@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../../services/home/home.service';
 import { Info } from '../../models/info'
 import { Router } from "@angular/router"
+import { ErrorService } from '../../services/error/error.service'
 import * as myGlobals from '../../globals'
 
 @Component({
@@ -19,6 +20,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private homeService: HomeService,
+    private errorService: ErrorService,
     private router: Router) {}
 
   ngOnInit() {
@@ -42,11 +44,13 @@ export class HomeComponent implements OnInit {
             this.temp = true
           },
           error => {
+            this.errorService.updateError(error)
             this.router.navigate(['/error'])
           }
         )
       },
       error => {
+        this.errorService.updateError(error)
         this.router.navigate(['/error'])
       }
     )
