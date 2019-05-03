@@ -2,7 +2,7 @@
 
 As most software engineers know, as codebases develop, new bugs are constantly being introduced and are often hard to detect and fix. We would like to propose a git based application that - from a specific repository - pulls multiple past code commits, and runs a series of tests on each build in order to determine which commit in the commit history is responsible for a specific bug. These tests would be deployed on separate AWS Lambda instances to allow this testing to occur in parallel, saving engineers valuable time.
 
-This repository will be holding all the deploying and testing code:
+This repository will be holding all the deploying and testing code, however we created an intuitive UI hosted on heroku to make our lives easier:
   * *create_random.py*: Python script to create a specified array length of random intergers and writing the array and sorted array to files. To run: `python create_random.py <length_of_random_array>`.
   * *last_commits.py*: Python script that clones the specified repository and makes copies of each of the past n commits (including the current one) in separate folders. These versions are all uploaded to an aws bucket for testing. To run: `python last_commits.py <link_to_repository> <number_of_commits>`.
   * *test_sorting.py*: Python script that currently has hard coded values to test the Main Sorting Function repository we want to test. This file is a dummy "proof of concept" that should vary when converted to lambda functions. To run: `python test_sorting.py`.
@@ -15,6 +15,68 @@ This repository will be holding all the deploying and testing code:
   * *frontend/*: Angular 6 application written to have a very basic UI that lets user input parameters and retrieve results from tests. Most of the logic is done in *src/app/components/home*
 
 We will be using the following [repository](https://github.com/LionelEisenberg/CloudComp-Testing/) for to hold the code that we will be using our application on. For more specifics please see the README for that repository, but to summarize we have a rather basic python script that sorts an array of integers and prints 
+
+## Installation Guide:
+
+**DISCLAIMER: our application is hosted on heroku, you can access the frontend [here](https://angular-cloud-comp-front.herokuapp.com/) and the backend [here](https://flask-cloud-comp-back.herokuapp.com/). These are instruction if you  want to run our code locally**
+
+### Frontend
+
+Make sure you have [Node](https://nodejs.org/en/), [npm](https://www.npmjs.com/) and [Angular 6+](https://angular.io/) installed on your local machine, to test this you can run `node -v`, `npm -v` and `ng --version`.
+
+Here are intructions:
+ * Clone Repository: `git clone https://github.com/jkaryo1/CCProject.git`.
+ * `cd frontend/`
+ * `npm install`
+ * `ng serve`
+ * Frontend should be live, just go to [http://localhost:4200](http://localhost:4200)
+ 
+### Backend
+
+Make sure you have [python 2.7](https://www.python.org/) and [pip](https://pypi.org/project/pip/) installed locally, to test this you can run `python -v` and `pip --version`.
+
+Here are instructoins:
+ * sudo pip install -r requrements.txt
+ * python flask_app.py
+ * Backend should be live, just go to [http://0.0.0.0:5002/](http://0.0.0.0:5002/)
+ * You should now be able to see queries to backend in the console.
+
+If you have any problem with installation feel free to contact lionel.eisenberg@gmail.com.
+
+## Interface and Endpoints
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| GET | /health_check | To check if endpoint is healthy | Success |
+| GET | / | To check if endpoint is healthy | Success |
+| GET | /last_commites/{git_address}{num_commits}{bucket_name} | Uploads past {num_commits} commits fromo {git_address} repository as zipped files to {bucket_name} | Success/Error |
+| GET | /delete_source/{bucket_name}{suffix} | deletes all files in {bucket_name} with suffix {suffix} | Success/Error |
+| GET | /get_results/{bucket_name}{num_commits} | gets informratino from target bucket when the bucket is filled | json of results and timestamps |
+
+The Results are returned to the frontend as a json of the shape of:
+
+```json
+{
+  "0th commit": {
+    "TIMESTAMP": "Fri, 03 May 2019 17:39:42 GMT",
+    "name of test 1": true,
+    "name of test 2": true,
+    "name of test 3": true
+  },
+  "1th commit": {
+    "TIMESTAMP": "Fri, 03 May 2019 17:39:42 GMT",
+    "name of test 1": true,
+    "name of test 2": false,
+    "name of test 3": true
+  },
+  "2th commit": {
+    "TIMESTAMP": "Fri, 03 May 2019 17:39:42 GMT",
+    "name of test 1": true,
+    "name of test 2": false,
+    "name of test 3": true
+  },
+}
+```
 
 ## Checkpoint 1:
 
