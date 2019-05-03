@@ -11,6 +11,7 @@ app = Flask(__name__)
 CORS(app)
 
 @app.route('/', methods=['GET'])
+@app.route('/health_check', methods=['GET'])
 def health_check():
     return jsonify(success=True)
 
