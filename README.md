@@ -41,10 +41,21 @@ Make sure you have [python 2.7](https://www.python.org/) and [pip](https://pypi.
 
 Here are instructions, from the root directory of the repo:
  * `cd backend/`
- * sudo pip install -r requirements.txt
- * python flask_app.py
- * Backend should be live, just go to [http://0.0.0.0:5002/](http://0.0.0.0:5002/), or on Windows [http://localhost:5002/](http://localhost:5002/)
+ * `sudo pip install -r requirements.txt`
+ * `python flask_app.py`
+ * Backend should be live, just go to [http://localhost:5002/](http://localhost:5002/)
  * You should now be able to see queries to backend in the console.
+ 
+ ### AWS Configuration
+ 
+ We retrieve AWS keys from the os so that the keys are more secure. To do so you must first add keys to your environment:
+ 
+ #### On MacOS
+ * Create a bash_profile file if you do not have one already `touch ~/.bash_proflie`
+ * Edit bash_profile file by adding these two lines:
+   * `export ACCESS_ID="<your-access-id>"`
+   * `export ACCESS_KEY="<your-secret-key>"`
+ * Then source your bash file: `source ~/.bash_profile`
 
 If you have any problem with installation feel free to contact lionel.eisenberg@gmail.com.
 
