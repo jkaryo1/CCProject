@@ -23,13 +23,14 @@ We will be using the following [repository](https://github.com/LionelEisenberg/C
 
 **DISCLAIMER: our application is hosted on heroku, you can access the frontend [here](https://angular-cloud-comp-front.herokuapp.com/) and the backend [here](https://flask-cloud-comp-back.herokuapp.com/). These are instruction if you  want to run our code locally**
 
+* Clone Repository: `git clone https://github.com/jkaryo1/CCProject.git`.
+
 ### Frontend
 
 Make sure you have [Node](https://nodejs.org/en/), [npm](https://www.npmjs.com/) and [Angular 6+](https://angular.io/) installed on your local machine, to test this you can run `node -v`, `npm -v` and `ng --version`.
 
-Here are intructions:
- * Clone Repository: `git clone https://github.com/jkaryo1/CCProject.git`.
- * `cd CCProject/frontend/`
+Here are intructions, from the root directory of the repo:
+ * `cd frontend/`
  * `npm install`
  * `ng serve`
  * Frontend should be live, just go to [http://localhost:4200](http://localhost:4200)
@@ -38,8 +39,9 @@ Here are intructions:
 
 Make sure you have [python 2.7](https://www.python.org/) and [pip](https://pypi.org/project/pip/) installed locally, to test this you can run `python --version` and `pip --version`.
 
-Here are instructoins:
- * sudo pip install -r requrements.txt
+Here are instructions, from the root directory of the repo:
+ * `cd backend/`
+ * sudo pip install -r requirements.txt
  * python flask_app.py
  * Backend should be live, just go to [http://0.0.0.0:5002/](http://0.0.0.0:5002/)
  * You should now be able to see queries to backend in the console.
