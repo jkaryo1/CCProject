@@ -10,6 +10,9 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+aws_access = str(os.getenv("ACCESS_ID"))
+aws_secret = str(os.getenv("ACCESS_KEY"))
+
 @app.route('/', methods=['GET'])
 @app.route('/health_check', methods=['GET'])
 def health_check():
