@@ -29,7 +29,7 @@ Make sure you have [Node](https://nodejs.org/en/), [npm](https://www.npmjs.com/)
 
 Here are intructions:
  * Clone Repository: `git clone https://github.com/jkaryo1/CCProject.git`.
- * `cd frontend/`
+ * `cd CCProject/frontend/`
  * `npm install`
  * `ng serve`
  * Frontend should be live, just go to [http://localhost:4200](http://localhost:4200)
