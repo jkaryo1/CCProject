@@ -2,14 +2,86 @@
 
 As most software engineers know, as codebases develop, new bugs are constantly being introduced and are often hard to detect and fix. We would like to propose a git based application that - from a specific repository - pulls multiple past code commits, and runs a series of tests on each build in order to determine which commit in the commit history is responsible for a specific bug. These tests would be deployed on separate AWS Lambda instances to allow this testing to occur in parallel, saving engineers valuable time.
 
-This repository will be holding all the deploying and testing code:
-  - *create_random.py*: Python script to create a specified array length of random intergers and writing the array and sorted array to files. To run: `python create_random.py <length_of_random_array>`
-  - *last_commits.py*: Python script that clones the specified repository and makes copies of each of the past n commits (including the current one) in separate folders. These versions are all uploaded to an aws bucket for testing. To run: `python last_commits.py <link_to_repository> <number_of_commits>`
-  - *add_remove_bucket*: Bash script that adds all files in a directory to an S3 bucket and then removes everything in the bucket.  To run:  `./add_remove_bucket`, however, since our bucket is private, other users should get an Access Denied error.
-  - *test_sorting.py*: Python script that currently has hard coded values to test the Main Sorting Function repository we want to test. This file is a dummy "proof of concept" that should vary when converted to lambda functions. To run: `python test_sorting.py`.
-  - *lambdaFunction.py*: Python function that runs on a lambda instance. It uses **boto3** to download files from an s3 bucket, tests these files, and uses upload the results to another s3 bucket (see [Checkpoint 2](#Checkpoint-2)). We will be posting more detailed instructions for how to deploy this lambda to your own lambda function.
+This repository will be holding all the deploying and testing code, however we created an intuitive UI hosted on heroku to make our lives easier:
+  * **create_random.py**: Python script to create a specified array length of random intergers and writing the array and sorted array to files. 
+    * To run: `python create_random.py <length_of_random_array>`.
+  * **last_commits.py**: Python script that clones the specified repository and makes copies of each of the past n commits (including the current one) in separate folders. These versions are all uploaded to an aws bucket for testing. 
+    * To run: `python last_commits.py <link_to_repository> <number_of_commits>`.
+  * **test_sorting.py**: Python script that currently has hard coded values to test the Main Sorting Function repository we want to test. This file is a dummy "proof of concept" that should vary when converted to lambda functions. 
+    * To run: `python test_sorting.py`.
+  * **lambdaFunction.py**: Python function that runs on a lambda instance. It uses **boto3** to download files from an s3 bucket, tests these files, and uses upload the results to another s3 bucket (see [Checkpoint 2](#Checkpoint-2)). We will be posting more detailed instructions for how to deploy this lambda to your own lambda function.
+  * **backend/**: This is the folder that holds all of the backend code for our application. In this folder we have the following files: 
+    * *flask_app.py*: the main file that has all of our logic and acts like a backend for our application - written in flask. It regroups most of the logic from our other scripts and basically is responsible for uploading the data to our buckets and causing the trigger events, querying the results back, and emptying out our buckets once the workload is done.
+    * *config.py*: has our (Lionel Eisenberg's) AWS configuration ids.
+    * *requirements.txt*: has all of the pip install requirements for our app. Used by heroku to do build the app.
+    * *runtime.txt*: indicates proper python runtime for heroku.
+  * **frontend/**: Angular 6 application written to have a very basic UI that lets user input parameters and retrieve results from tests. Most of the logic is done in *src/app/components/home*
 
 We will be using the following [repository](https://github.com/LionelEisenberg/CloudComp-Testing/) for to hold the code that we will be using our application on. For more specifics please see the README for that repository, but to summarize we have a rather basic python script that sorts an array of integers and prints 
+
+## Installation Guide:
+
+**DISCLAIMER: our application is hosted on heroku, you can access the frontend [here](https://angular-cloud-comp-front.herokuapp.com/) and the backend [here](https://flask-cloud-comp-back.herokuapp.com/). These are instruction if you  want to run our code locally**
+
+* Clone Repository: `git clone https://github.com/jkaryo1/CCProject.git`.
+
+### Frontend
+
+Make sure you have [Node](https://nodejs.org/en/), [npm](https://www.npmjs.com/) and [Angular 6+](https://angular.io/) installed on your local machine, to test this you can run `node -v`, `npm -v` and `ng --version`.
+
+Here are intructions, from the root directory of the repo:
+ * `cd frontend/`
+ * `npm install`
+ * `ng serve`
+ * Frontend should be live, just go to [http://localhost:4200](http://localhost:4200)
+ 
+### Backend
+
+Make sure you have [python 2.7](https://www.python.org/) and [pip](https://pypi.org/project/pip/) installed locally, to test this you can run `python --version` and `pip --version`.
+
+Here are instructions, from the root directory of the repo:
+ * `cd backend/`
+ * sudo pip install -r requirements.txt
+ * python flask_app.py
+ * Backend should be live, just go to [http://0.0.0.0:5002/](http://0.0.0.0:5002/)
+ * You should now be able to see queries to backend in the console.
+
+If you have any problem with installation feel free to contact lionel.eisenberg@gmail.com.
+
+## Interface and Endpoints
+
+| Method | Endpoint | Usage | Returns |
+| ------ | -------- | ----- | ------- |
+| GET | /health_check | To check if endpoint is healthy | Success |
+| GET | / | To check if endpoint is healthy | Success |
+| GET | /last_commites/{git_address}{num_commits}{bucket_name} | Uploads past {num_commits} commits fromo {git_address} repository as zipped files to {bucket_name} | Success/Error |
+| GET | /delete_source/{bucket_name}{suffix} | deletes all files in {bucket_name} with suffix {suffix} | Success/Error |
+| GET | /get_results/{bucket_name}{num_commits} | gets informratino from target bucket when the bucket is filled | json of results and timestamps |
+
+The Results are returned to the frontend as a json of the shape of:
+
+```json
+{
+  "0th commit": {
+    "TIMESTAMP": "Fri, 03 May 2019 17:39:42 GMT",
+    "name of test 1": true,
+    "name of test 2": true,
+    "name of test 3": true
+  },
+  "1th commit": {
+    "TIMESTAMP": "Fri, 03 May 2019 17:39:42 GMT",
+    "name of test 1": true,
+    "name of test 2": false,
+    "name of test 3": true
+  },
+  "2th commit": {
+    "TIMESTAMP": "Fri, 03 May 2019 17:39:42 GMT",
+    "name of test 1": true,
+    "name of test 2": false,
+    "name of test 3": true
+  },
+}
+```
 
 ## Checkpoint 1:
 
