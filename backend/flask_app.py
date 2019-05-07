@@ -5,7 +5,6 @@ import subprocess
 import boto3
 import time
 import json
-import config
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
