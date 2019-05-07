@@ -1,4 +1,4 @@
-#!/usr/bin/env 
+#!/usr/bin/env python2
 
 import os
 import subprocess
@@ -25,6 +25,7 @@ def last_commits():
     repo_link = request.args.get('git_address', None)
     num_commits = int(request.args.get('num_commits', None))
     bucket_name = request.args.get('bucket_name', None)
+    print repo_link
 
     path = os.path.dirname(os.path.realpath(__file__))
     repo_name = repo_link.split("/")[-1].split('.')[:-1][0] #this is convoluted
