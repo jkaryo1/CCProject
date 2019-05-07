@@ -36,7 +36,7 @@ Here are intructions:
  
 ### Backend
 
-Make sure you have [python 2.7](https://www.python.org/) and [pip](https://pypi.org/project/pip/) installed locally, to test this you can run `python -v` and `pip --version`.
+Make sure you have [python 2.7](https://www.python.org/) and [pip](https://pypi.org/project/pip/) installed locally, to test this you can run `python --version` and `pip --version`.
 
 Here are instructoins:
  * sudo pip install -r requrements.txt
