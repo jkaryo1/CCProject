@@ -53,8 +53,8 @@ Here are instructions, from the root directory of the repo:
  #### On MacOS
  * Create a bash_profile file if you do not have one already `touch ~/.bash_proflie`
  * Edit bash_profile file by adding these two lines:
-  * `export aws_access="<your-access-id>"
-  * `export aws_secret="<your-secret-key>"
+   * `export aws_access="<your-access-id>"`
+   * `export aws_secret="<your-secret-key>"`
  * Then source your bash file: `source ~/.bash_profile`
 
 If you have any problem with installation feel free to contact lionel.eisenberg@gmail.com.
