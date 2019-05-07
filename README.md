@@ -43,7 +43,7 @@ Here are instructions, from the root directory of the repo:
  * `cd backend/`
  * sudo pip install -r requirements.txt
  * python flask_app.py
- * Backend should be live, just go to [http://0.0.0.0:5002/](http://0.0.0.0:5002/)
+ * Backend should be live, just go to [http://0.0.0.0:5002/](http://0.0.0.0:5002/), or on Windows [http://localhost:5002/](http://localhost:5002/)
  * You should now be able to see queries to backend in the console.
 
 If you have any problem with installation feel free to contact lionel.eisenberg@gmail.com.
