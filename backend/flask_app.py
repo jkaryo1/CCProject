@@ -72,8 +72,14 @@ def last_commits():
             for f in files:
                 to_upload.append(os.path.join(root, f))
 
-        print to_upload
-        upload(to_upload, bucket_name, i)
+        '''
+        We can ignore upload failure here since it will trigger an error elsewhere.
+        This way the locally cloned repo is deleted regardless of upload success.
+        '''
+        try:
+            upload(to_upload, bucket_name, i)
+        except:
+            break #don't continue if even one upload fails
 
     '''
     Cleans up by deleting cloned repository and zipped commits.
