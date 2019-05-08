@@ -38,6 +38,14 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  add_hashes(hashes: Object) {
+    for (var i = 0; i < this.model.num_commits; i++) {
+      const endStamp = Date.parse(this.results[i]["TIMESTAMP"]);
+      // this.results[i]["duration"] = (Math.round((endStamp - startStamp) / 1000))
+      this.results[i]["hash"] = hashes[i]
+    }
+  }
+
   async onSubmit() {
     this.notSubmitted = false
     this.loading = true
@@ -51,6 +59,11 @@ export class HomeComponent implements OnInit {
             this.homeService.delete_source(myGlobals.target_bucket, '.json').subscribe()
             this.loading = false
             this.add_duration(startStamp);
+            this.homeService.getHashes(this.model).subscribe(
+              data => {
+                this.add_hashes(data)
+              }
+            )
             this.temp = true
           },
           error => {

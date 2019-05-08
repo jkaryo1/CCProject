@@ -3,8 +3,10 @@
 import os
 import subprocess
 import boto3
+import shutil
 import time
 import json
+import git
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
@@ -25,7 +27,6 @@ def last_commits():
     repo_link = request.args.get('git_address', None)
     num_commits = int(request.args.get('num_commits', None))
     bucket_name = request.args.get('bucket_name', None)
-    print repo_link
 
     path = os.path.dirname(os.path.realpath(__file__))
     repo_name = repo_link.split("/")[-1].split('.')[:-1][0] #this is convoluted
@@ -71,6 +72,7 @@ def last_commits():
             for f in files:
                 to_upload.append(os.path.join(root, f))
 
+        print to_upload
         upload(to_upload, bucket_name, i)
 
     '''
@@ -84,6 +86,22 @@ def last_commits():
         delete_proc.wait()
 
     return jsonify(success=True)
+
+@app.route('/get_past_hashes', methods=['GET'])
+def get_past_hashes():
+    num_commits = int(request.args.get('num_commits', None))
+    repo_link = request.args.get('git_address', None)
+    repo_name = repo_link.split("/")[-1].split('.')[:-1][0] #this is convoluted
+
+    path = os.getcwd() + "/" + repo_name
+    git.Repo.clone_from(repo_link, path)
+
+    g = git.Git(path)
+    loginfo = g.log('--pretty=tformat:"%h"','-' + str(num_commits)).replace('"','').split()
+
+    shutil.rmtree(path)
+    return jsonify(loginfo)
+
 
 @app.route('/delete_source', methods=['GET'])
 def delete_source():

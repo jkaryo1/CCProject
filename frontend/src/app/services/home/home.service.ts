@@ -35,4 +35,11 @@ export class HomeService {
       .set('suffix', suffix);
     return this.http.get(this.baseUrl + "/delete_source", {params})
   }
+
+  getHashes(model: Info) {
+    const params = new HttpParams()
+      .set('git_address', model.git_address)
+      .set('num_commits', String(model.num_commits))
+    return this.http.get(this.baseUrl + "/get_past_hashes", {params});
+  }
 }
