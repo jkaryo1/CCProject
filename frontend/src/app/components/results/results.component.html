@@ -1,5 +1,6 @@
 <div class="load_container">
   <mat-card>
+    <mat-card-title style="text-align:center;">Results</mat-card-title>
     <table>
       <tbody>
         <th>Test</th>
@@ -9,6 +10,7 @@
           <td *ngFor="let result of results">
             <mat-icon class="red-icon" *ngIf="result[test]==false">close</mat-icon>
             <mat-icon class="green-icon" *ngIf="result[test]==true">check</mat-icon>
+            <p *ngIf="result[test]==error">Error</p>
           </td>
         </tr>
       </tbody>
@@ -21,5 +23,8 @@
         </tr>
       </tfoot>
     </table>
+    <div style="text-align:center; margin-top:15px;">
+      <a mat-stroked-button color="primary" routerLink="/" routerLinkActive="active">Go Back</a>
+    </div>
   </mat-card>
 </div>

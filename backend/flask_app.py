@@ -133,7 +133,7 @@ def delete_source():
 
 @app.route('/get_results', methods=['GET'])
 def get_results():
-    timeout = 10 #in seconds
+    timeout = 60 #in seconds
     bucket_name = request.args.get('bucket_name', None)
     num_commits = int(request.args.get('num_commits', None))
 
