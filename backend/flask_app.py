@@ -7,7 +7,7 @@ import shutil
 import time
 import json
 import git
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, abort
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -147,9 +147,10 @@ def get_results():
         all_buckets = bucket.objects.all()
         length = sum(1 for _ in all_buckets)
 
-    if timeout == 0:
+    if timeout < 0 and length != num_commits:
         abort(504)
 
+    print timeout
     results = getJson(bucket_name, num_commits, s3)
     return jsonify(results)
 
