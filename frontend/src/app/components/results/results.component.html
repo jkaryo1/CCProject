@@ -7,7 +7,8 @@
         <tr *ngFor="let test of tests">
           <td>{{test}}</td>
           <td *ngFor="let result of results">
-            {{result[test]}}
+            <mat-icon class="red-icon" *ngIf="result[test]==false">close</mat-icon>
+            <mat-icon class="green-icon" *ngIf="result[test]==true">check</mat-icon>
           </td>
         </tr>
       </tbody>
