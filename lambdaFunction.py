@@ -25,7 +25,10 @@ def test_file(download_path, testing_path):
     for sorting_func in sorting_funcs:
         result = subprocess.run(['python3.7', FILEPATH, sorting_func, TESTPATH], stdout=subprocess.PIPE)
         array = list(map(int, result.stdout.decode('utf-8').splitlines()))
-        results[sorting_func] = array == arraySorted
+        if array != "error":
+            results[sorting_func] = array == arraySorted
+        else:
+            results[sorting_func] = "error"
     return results
 
 def handler(event, context):
