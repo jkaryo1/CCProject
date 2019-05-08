@@ -1,25 +1,23 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Routes } from '@angular/router';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
+import { RouterModule, Routes } from "@angular/router";
 
-import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
-import { ErrorComponent } from './components/error/error.component';
+import { AppComponent } from "./app.component";
+import { HomeComponent } from "./components/home/home.component";
+import { ErrorComponent } from "./components/error/error.component";
+import { ResultsComponent } from "./components/results/results.component";
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'error', component: ErrorComponent}
+  { path: "", component: HomeComponent },
+  { path: "home", component: HomeComponent },
+  { path: "error", component: ErrorComponent },
+  { path: "results", component: ResultsComponent }
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    ErrorComponent
-  ],
+  declarations: [AppComponent, HomeComponent, ErrorComponent, ResultsComponent],
   imports: [
     BrowserModule,
     FormsModule,
@@ -32,4 +30,4 @@ const appRoutes: Routes = [
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
