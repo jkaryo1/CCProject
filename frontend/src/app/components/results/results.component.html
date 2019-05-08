@@ -1,6 +1,12 @@
 <div class="container">
   <table>
-    <th *ngFor="let header of headers">{{header}}</th>
+    <th>Test</th>
+    <th *ngFor="let result of results">{{result.hash}}</th>
+    <tr *ngFor="let test of tests">
+      <td>{{test}}</td>
+      <td *ngFor="let result of results">
+        {{result[test]}}
+      </td>
+    </tr>
   </table>
-  <pre>{{results | json}}</pre>
 </div>

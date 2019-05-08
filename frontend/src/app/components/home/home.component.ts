@@ -68,9 +68,9 @@ export class HomeComponent implements OnInit {
             this.add_duration(startStamp);
             this.homeService.getHashes(this.model).subscribe(data => {
               this.add_hashes(data);
+              this.resultsService.updateResults(this.results);
+              this.router.navigate(["/results"]);
             });
-            this.resultsService.updateResults(this.results);
-            this.router.navigate(["/results"]);
             // this.temp = true
           },
           error => {
