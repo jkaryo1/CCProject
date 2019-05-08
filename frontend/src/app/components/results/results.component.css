@@ -1,0 +1,29 @@
+table,
+th,
+td {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+.red-icon {
+    color: red;
+}
+/* Note: If you're using an SVG icon, you should make the class target the `<svg>` element */
+.red-icon svg {
+    fill: red;
+}
+
+.green-icon {
+    color: green;
+}
+/* Note: If you're using an SVG icon, you should make the class target the `<svg>` element */
+.green-icon svg {
+    fill: green;
+}

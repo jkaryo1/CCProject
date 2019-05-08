@@ -1,0 +1,25 @@
+<div class="load_container">
+  <mat-card>
+    <table>
+      <tbody>
+        <th>Test</th>
+        <th *ngFor="let result of results">{{result.hash}}</th>
+        <tr *ngFor="let test of tests">
+          <td>{{test}}</td>
+          <td *ngFor="let result of results">
+            <mat-icon class="red-icon" *ngIf="result[test]==false">close</mat-icon>
+            <mat-icon class="green-icon" *ngIf="result[test]==true">check</mat-icon>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Duration (s)</td>
+          <td *ngFor="let result of results">
+            {{result["duration"]}}
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </mat-card>
+</div>
