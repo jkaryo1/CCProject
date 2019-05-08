@@ -10,11 +10,14 @@ import { ResultsService } from "../../services/results/results.service";
 export class ResultsComponent implements OnInit {
   public results: Object;
   public tests: string[];
+  public columnsToDisplay = ['test'];
+
 
   constructor(private resultsService: ResultsService) {}
 
   ngOnInit() {
     this.results = this.resultsService.getResults();
     this.tests = this.resultsService.getTests();
+    console.log(this.results)
   }
 }

@@ -1,12 +1,24 @@
-<div class="container">
-  <table>
-    <th>Test</th>
-    <th *ngFor="let result of results">{{result.hash}}</th>
-    <tr *ngFor="let test of tests">
-      <td>{{test}}</td>
-      <td *ngFor="let result of results">
-        {{result[test]}}
-      </td>
-    </tr>
-  </table>
+<div class="load_container">
+  <mat-card>
+    <table>
+      <tbody>
+        <th>Test</th>
+        <th *ngFor="let result of results">{{result.hash}}</th>
+        <tr *ngFor="let test of tests">
+          <td>{{test}}</td>
+          <td *ngFor="let result of results">
+            {{result[test]}}
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Duration (s)</td>
+          <td *ngFor="let result of results">
+            {{result["duration"]}}
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </mat-card>
 </div>

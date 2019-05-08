@@ -16,7 +16,6 @@ export class HomeComponent implements OnInit {
   notSubmitted: boolean;
   loading: boolean;
   results: Object;
-  temp: boolean; // DELETE
   model = new Info("", null);
 
   constructor(
@@ -27,10 +26,10 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // console.log(this.homeService.getHelloWorld())
     this.numbers = Array.from({ length: myGlobals.max_commits }, (x, i) => i);
-    // this.numbers.shift()
+    this.numbers.shift()
     this.notSubmitted = true;
+    this.loading = false;
   }
 
   add_duration(startStamp: number) {
@@ -64,14 +63,12 @@ export class HomeComponent implements OnInit {
             this.homeService
               .delete_source(myGlobals.target_bucket, ".json")
               .subscribe();
-            this.loading = false;
             this.add_duration(startStamp);
             this.homeService.getHashes(this.model).subscribe(data => {
               this.add_hashes(data);
               this.resultsService.updateResults(this.results);
               this.router.navigate(["/results"]);
             });
-            // this.temp = true
           },
           error => {
             this.errorService.updateError(error);
