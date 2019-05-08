@@ -48,6 +48,15 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  deleteFiles() {
+    this.homeService
+      .delete_source(myGlobals.source_bucket, ".zip")
+      .subscribe();
+    this.homeService
+      .delete_source(myGlobals.target_bucket, ".json")
+      .subscribe();
+  }
+
   async onSubmit() {
     this.notSubmitted = false;
     this.loading = true;
@@ -57,12 +66,7 @@ export class HomeComponent implements OnInit {
         this.homeService.getResults(this.model.num_commits).subscribe(
           data => {
             this.results = data;
-            this.homeService
-              .delete_source(myGlobals.source_bucket, ".zip")
-              .subscribe();
-            this.homeService
-              .delete_source(myGlobals.target_bucket, ".json")
-              .subscribe();
+            this.deleteFiles()
             this.add_duration(startStamp);
             this.homeService.getHashes(this.model).subscribe(data => {
               this.add_hashes(data);
@@ -71,6 +75,7 @@ export class HomeComponent implements OnInit {
             });
           },
           error => {
+            this.deleteFiles()
             this.errorService.updateError(error);
             this.router.navigate(["/error"]);
           }
