@@ -41,6 +41,14 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  add_hashes(hashes: Object) {
+    for (var i = 0; i < this.model.num_commits; i++) {
+      const endStamp = Date.parse(this.results[i]["TIMESTAMP"]);
+      // this.results[i]["duration"] = (Math.round((endStamp - startStamp) / 1000))
+      this.results[i]["hash"] = hashes[i];
+    }
+  }
+
   async onSubmit() {
     this.notSubmitted = false;
     this.loading = true;
@@ -58,6 +66,9 @@ export class HomeComponent implements OnInit {
               .subscribe();
             this.loading = false;
             this.add_duration(startStamp);
+            this.homeService.getHashes(this.model).subscribe(data => {
+              this.add_hashes(data);
+            });
             this.resultsService.updateResults(this.results);
             this.router.navigate(["/results"]);
             // this.temp = true
