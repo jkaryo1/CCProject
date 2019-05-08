@@ -9,6 +9,7 @@
           <td *ngFor="let result of results">
             <mat-icon class="red-icon" *ngIf="result[test]==false">close</mat-icon>
             <mat-icon class="green-icon" *ngIf="result[test]==true">check</mat-icon>
+            <p *ngIf="result[test]==error">Error</p>
           </td>
         </tr>
       </tbody>
