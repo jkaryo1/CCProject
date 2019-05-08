@@ -28,8 +28,9 @@ def last_commits():
     num_commits = int(request.args.get('num_commits', None))
     bucket_name = request.args.get('bucket_name', None)
 
-    path = os.path.dirname(os.path.realpath(__file__))
+    path = os.getcwd()
     repo_name = repo_link.split("/")[-1].split('.')[:-1][0] #this is convoluted
+    path_to_repo = path + "/" + repo_name
 
     '''
     Uploads given files to given bucket. The version number is for naming
@@ -50,8 +51,7 @@ def last_commits():
     '''
     Clone repository (link taken as command line arg)
     '''
-    proc = subprocess.Popen(("git clone " + repo_link).split())
-    proc.wait()
+    git.Repo.clone_from(repo_link, path_to_repo)
 
 
     '''
@@ -61,7 +61,7 @@ def last_commits():
     for i in range(num_commits):
         #checks out commits, but ignores first time around (to get current commit)
         if i > 0:
-            proc = subprocess.Popen(("git -C " + repo_name + " checkout HEAD~1").split())
+            proc = subprocess.Popen(['git','-C', repo_name,'checkout','HEAD~1'])
             proc.wait()
 
         #collects all files not in a .git directory
@@ -84,15 +84,16 @@ def last_commits():
     '''
     Cleans up by deleting cloned repository and zipped commits.
     '''
-    proc = subprocess.Popen(("rm -rf " + repo_name).split())
-    proc.wait()
+    shutil.rmtree(path_to_repo)
 
     for i in range(num_commits):
-        delete_proc = subprocess.Popen(("rm " + str(i) + ".zip").split())
-        delete_proc.wait()
+        os.remove(path + "/" + str(i) + ".zip")
 
     return jsonify(success=True)
 
+'''
+This endpoint clones the repository and gets the past n hashes fo n commits.
+'''
 @app.route('/get_past_hashes', methods=['GET'])
 def get_past_hashes():
     num_commits = int(request.args.get('num_commits', None))
