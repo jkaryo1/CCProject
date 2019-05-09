@@ -14,7 +14,7 @@ export class BenchmarkComponent implements OnInit {
   total_top_results: number[] = [];
   avg: number;
   top: number;
-  num_iterations: number = 5;
+  num_iterations: number = 2;
   num_commits: number = 5;
   input_size: number = 100;
 
@@ -74,7 +74,7 @@ export class BenchmarkComponent implements OnInit {
                   this.total_top_results.push(this.getTopTimes(data, startStamp))
                   this.deleteFiles();
                   if (num > 1) {
-                    loop(num-1);
+                    setTimeout(()=>{loop(num-1)}, 10000)
                   }
                   else {
                     const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
