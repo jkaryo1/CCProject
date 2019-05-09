@@ -16,6 +16,12 @@
               <mat-option *ngFor="let num of numbers"  [value]="num">{{num}}</mat-option>
             </mat-select>
           </mat-form-field>
+          <br>
+          <mat-form-field  class="form-group">
+            <mat-label for="input_size">Input Size, between 1-10000</mat-label>
+            <input matInput type="text" class="form-control" [(ngModel)]="model.input_size"
+             id="input_size" name="input_size" #name="ngModel" required>
+          </mat-form-field >
           <mat-card-actions>
             <button mat-stroked-button color="primary" type="submit" class="btn btn-success" [disabled]="!homeForm.valid" >Submit</button>
           </mat-card-actions>
