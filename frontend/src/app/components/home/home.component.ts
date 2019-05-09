@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit {
         const startStamp: number = new Date().getTime();
         this.homeService.upload(this.model).subscribe(
           data => {
-            this.homeService.getResults(this.model.num_commits).subscribe(
+            this.homeService.getResults(this.model).subscribe(
               data => {
                 this.results = data;
                 this.deleteFiles()

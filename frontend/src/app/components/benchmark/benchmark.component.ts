@@ -68,7 +68,7 @@ export class BenchmarkComponent implements OnInit {
           const startStamp: number = new Date().getTime();
           this.homeService.upload(this.model).subscribe(
             data => {
-              this.homeService.getResults(this.model.num_commits).subscribe(
+              this.homeService.getResults(this.model).subscribe(
                 data => {
                   this.total_avg_results.push(this.getAvgTimes(data, startStamp))
                   this.total_top_results.push(this.getTopTimes(data, startStamp))

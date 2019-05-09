@@ -155,9 +155,12 @@ def create_and_upload_input():
 
 @app.route('/get_results', methods=['GET'])
 def get_results():
-    timeout = 60 #in seconds
     bucket_name = request.args.get('bucket_name', None)
     num_commits = int(request.args.get('num_commits', None))
+    input_size = int(request.args.get('input_size', None))
+
+    timeout = 0.03 * input_size #in seconds
+    checking_rate = timeout / 50
 
     s3 = boto3.resource('s3', aws_access_key_id=aws_access, aws_secret_access_key=aws_secret)
     bucket = s3.Bucket(bucket_name)
@@ -165,8 +168,8 @@ def get_results():
     length = sum(1 for _ in all_buckets)
     while length != num_commits and timeout > 0:
         print(length, num_commits)
-        time.sleep(0.2) #sleep 200 ms
-        timeout -= 0.2
+        time.sleep(checking_rate) #sleep 200 ms
+        timeout -= checking_rate
         all_buckets = bucket.objects.all()
         length = sum(1 for _ in all_buckets)
 

@@ -28,10 +28,11 @@ export class HomeService {
     return this.http.get(this.baseUrl + "/create_and_upload_input", { params });
   }
 
-  getResults(num_commits: number) {
+  getResults(model: Info) {
     const params = new HttpParams()
       .set("bucket_name", myGlobals.target_bucket)
-      .set("num_commits", String(num_commits));
+      .set("input_size", String(model.input_size))
+      .set("num_commits", String(model.num_commits));
     return this.http.get(this.baseUrl + "/get_results", { params });
   }
 
