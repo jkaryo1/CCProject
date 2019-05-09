@@ -133,7 +133,7 @@ def delete_source():
 
 @app.route('/get_results', methods=['GET'])
 def get_results():
-    timeout = 60 #in seconds
+    timeout = 10 #in seconds
     bucket_name = request.args.get('bucket_name', None)
     num_commits = int(request.args.get('num_commits', None))
 
@@ -148,7 +148,7 @@ def get_results():
         all_buckets = bucket.objects.all()
         length = sum(1 for _ in all_buckets)
 
-    if timeout == 0:
+    if timeout < 0 and length != num_commits:
         abort(504)
 
     results = getJson(bucket_name, num_commits, s3)
