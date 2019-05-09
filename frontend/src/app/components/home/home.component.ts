@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   notSubmitted: boolean;
   loading: boolean;
   results: Object;
-  model = new Info("", null);
+  model = new Info("", null, null);
 
   constructor(
     private homeService: HomeService,
@@ -55,27 +55,38 @@ export class HomeComponent implements OnInit {
     this.homeService
       .delete_source(myGlobals.target_bucket, ".json")
       .subscribe();
+    this.homeService
+      .delete_source(myGlobals.source_bucket, "0")
+      .subscribe();
   }
 
   async onSubmit() {
     this.notSubmitted = false;
     this.loading = true;
-    const startStamp: number = new Date().getTime();
-    this.homeService.upload(this.model).subscribe(
+    this.homeService.createAndUploadInput(this.model).subscribe(
       data => {
-        this.homeService.getResults(this.model.num_commits).subscribe(
+        const startStamp: number = new Date().getTime();
+        this.homeService.upload(this.model).subscribe(
           data => {
-            this.results = data;
-            this.deleteFiles()
-            this.add_duration(startStamp);
-            this.homeService.getHashes(this.model).subscribe(data => {
-              this.add_hashes(data);
-              this.resultsService.updateResults(this.results);
-              this.router.navigate(["/results"]);
-            });
+            this.homeService.getResults(this.model.num_commits).subscribe(
+              data => {
+                this.results = data;
+                this.deleteFiles()
+                this.add_duration(startStamp);
+                this.homeService.getHashes(this.model).subscribe(data => {
+                  this.add_hashes(data);
+                  this.resultsService.updateResults(this.results);
+                  this.router.navigate(["/results"]);
+                });
+              },
+              error => {
+                this.deleteFiles()
+                this.errorService.updateError(error);
+                this.router.navigate(["/error"]);
+              }
+            );
           },
           error => {
-            this.deleteFiles()
             this.errorService.updateError(error);
             this.router.navigate(["/error"]);
           }
@@ -85,6 +96,6 @@ export class HomeComponent implements OnInit {
         this.errorService.updateError(error);
         this.router.navigate(["/error"]);
       }
-    );
+    )
   }
 }

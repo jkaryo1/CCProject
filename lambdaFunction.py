@@ -56,7 +56,11 @@ def handler(event, context):
 
             # get files from bucket
             s3_client.download_file(source_bucket, key, zip_path)
-            s3_client.download_file(source_bucket, testing_key, testing_path)
+
+            objects = boto3.resource('s3').Bucket(source_bucket).objects.all()
+            for object in objects:
+              if object.key.startswith('input'):
+                  s3_client.download_file(source_bucket, object.key, testing_path)
 
             # From zip get main_file
             with ZipFile(zip_path,"r") as zip_ref:

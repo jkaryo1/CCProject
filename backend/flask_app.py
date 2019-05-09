@@ -1,6 +1,7 @@
 #!/usr/bin/env python2
 
 import os
+import random
 import subprocess
 import boto3
 import shutil
@@ -129,6 +130,27 @@ def delete_source():
             }
         )
 
+    return jsonify(success=True)
+
+@app.route('/create_and_upload_input', methods=['GET'])
+def create_and_upload_input():
+    bucket_name = request.args.get('bucket_name', None)
+    input_size = int(request.args.get('input_size', None))
+
+    array = []
+    for i in range(input_size):
+        rand = random.randint(-999999, 999999)
+        array.append(rand)
+
+    filename = 'input_' + str(input_size)
+    f = open(filename, 'w')
+    for i in range(len(array)):
+        f.write(str(array[i]) + "\n")
+    f.close()
+    
+    s3 = boto3.resource('s3', aws_access_key_id=aws_access, aws_secret_access_key= aws_secret)
+    s3.meta.client.upload_file(os.getcwd() + "/" + filename, bucket_name, filename)
+    os.remove(os.getcwd() + "/" + filename)
     return jsonify(success=True)
 
 @app.route('/get_results', methods=['GET'])

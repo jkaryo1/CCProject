@@ -21,6 +21,13 @@ export class HomeService {
     return this.http.get(this.baseUrl + "/last_commits", { params });
   }
 
+  createAndUploadInput(model: Info) {
+    const params = new HttpParams()
+      .set("input_size", String(model.input_size))
+      .set("bucket_name", myGlobals.source_bucket);
+    return this.http.get(this.baseUrl + "/create_and_upload_input", { params });
+  }
+
   getResults(num_commits: number) {
     const params = new HttpParams()
       .set("bucket_name", myGlobals.target_bucket)
