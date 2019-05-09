@@ -10,16 +10,19 @@ import { HomeComponent } from "./components/home/home.component";
 import { ErrorComponent } from "./components/error/error.component";
 import { ResultsComponent } from "./components/results/results.component";
 import { MyMaterialModule } from  './material.module';
+import { BenchmarkComponent } from './components/benchmark/benchmark.component';
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
   { path: "home", component: HomeComponent },
   { path: "error", component: ErrorComponent },
-  { path: "results", component: ResultsComponent }
+  { path: "results", component: ResultsComponent },
+  { path: "benchmark", component: BenchmarkComponent}
+
 ];
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, ErrorComponent, ResultsComponent],
+  declarations: [AppComponent, HomeComponent, ErrorComponent, ResultsComponent, BenchmarkComponent],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
