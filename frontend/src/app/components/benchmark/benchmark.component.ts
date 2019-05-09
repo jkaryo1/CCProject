@@ -14,9 +14,9 @@ export class BenchmarkComponent implements OnInit {
   total_top_results: number[] = [];
   avg: number;
   top: number;
-  num_iterations: number = 10;
+  num_iterations: number = 20;
   num_commits: number = 8;
-  input_size: number = 5000;
+  input_size: number = 1000;
 
   constructor(
     private homeService: HomeService
@@ -82,6 +82,8 @@ export class BenchmarkComponent implements OnInit {
                     this.top = average(this.total_top_results)
                     console.log(this.avg)
                     console.log(this.top)
+                    console.log(this.total_avg_results)
+                    console.log(this.total_top_results)
                   }
                 },
                 error => {
