@@ -8,7 +8,7 @@ import shutil
 import time
 import json
 import git
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, abort
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -155,7 +155,7 @@ def create_and_upload_input():
 
 @app.route('/get_results', methods=['GET'])
 def get_results():
-    timeout =60 #in seconds
+    timeout = 60 #in seconds
     bucket_name = request.args.get('bucket_name', None)
     num_commits = int(request.args.get('num_commits', None))
 

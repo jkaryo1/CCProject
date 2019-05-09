@@ -14,9 +14,9 @@ export class BenchmarkComponent implements OnInit {
   total_top_results: number[] = [];
   avg: number;
   top: number;
-  num_iterations: number = 20;
-  num_commits: number = 8;
-  input_size: number = 1000;
+  num_iterations: number = 5;
+  num_commits: number = 5;
+  input_size: number = 100;
 
   constructor(
     private homeService: HomeService
