@@ -9,12 +9,14 @@ import * as myGlobals from "../../globals";
   styleUrls: ['./benchmark.component.css']
 })
 export class BenchmarkComponent implements OnInit {
-  model = new Info("", null);
+  model = new Info("", null, null);
   total_avg_results: number[] = [];
   total_top_results: number[] = [];
   avg: number;
   top: number;
-  num_iterations: number = 10
+  num_iterations: number = 10;
+  num_commits: number = 8;
+  input_size: number = 5000;
 
   constructor(
     private homeService: HomeService
@@ -26,6 +28,9 @@ export class BenchmarkComponent implements OnInit {
       .subscribe();
     this.homeService
       .delete_source(myGlobals.target_bucket, ".json")
+      .subscribe();
+    this.homeService
+      .delete_source(myGlobals.source_bucket, "0")
       .subscribe();
   }
 
@@ -51,41 +56,45 @@ export class BenchmarkComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.model = new Info("https://github.com/LionelEisenberg/CloudComp-Testing.git", 8)
+    this.model = new Info("https://github.com/LionelEisenberg/CloudComp-Testing.git"
+    , this.num_commits, this.input_size)
   }
 
   startBenchmark() {
     console.log(this.model)
     let loop = (num: number) => {
-      const startStamp: number = new Date().getTime();
-      this.homeService.upload(this.model).subscribe(
+      this.homeService.createAndUploadInput(this.model).subscribe(
         data => {
-          this.homeService.getResults(this.model.num_commits).subscribe(
+          const startStamp: number = new Date().getTime();
+          this.homeService.upload(this.model).subscribe(
             data => {
-              this.total_avg_results.push(this.getAvgTimes(data, startStamp))
-              this.total_top_results.push(this.getTopTimes(data, startStamp))
-              this.deleteFiles();
-              if (num > 1) {
-                sleep(1000);
-                loop(num-1);
-              }
-              else {
-                const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
-                this.avg = average(this.total_avg_results);
-                this.top = average(this.total_top_results)
-                console.log(this.avg)
-                console.log(this.top)
-              }
+              this.homeService.getResults(this.model.num_commits).subscribe(
+                data => {
+                  this.total_avg_results.push(this.getAvgTimes(data, startStamp))
+                  this.total_top_results.push(this.getTopTimes(data, startStamp))
+                  this.deleteFiles();
+                  if (num > 1) {
+                    loop(num-1);
+                  }
+                  else {
+                    const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
+                    this.avg = average(this.total_avg_results);
+                    this.top = average(this.total_top_results)
+                    console.log(this.avg)
+                    console.log(this.top)
+                  }
+                },
+                error => {
+                  this.deleteFiles();
+                }
+              );
             },
             error => {
               this.deleteFiles();
             }
           );
-        },
-        error => {
-          this.deleteFiles();
         }
-      );
+      )
     }
     loop(this.num_iterations)
   }

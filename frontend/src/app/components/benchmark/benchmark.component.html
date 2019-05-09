@@ -1,1 +1,5 @@
 <button type="button" (click)="startBenchmark()">start benchmark</button>
+<div *ngIf="this.top || this.avg">
+  {{this.top}}
+  {{this.avg}}
+</div>

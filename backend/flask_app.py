@@ -147,7 +147,7 @@ def create_and_upload_input():
     for i in range(len(array)):
         f.write(str(array[i]) + "\n")
     f.close()
-    
+
     s3 = boto3.resource('s3', aws_access_key_id=aws_access, aws_secret_access_key= aws_secret)
     s3.meta.client.upload_file(os.getcwd() + "/" + filename, bucket_name, filename)
     os.remove(os.getcwd() + "/" + filename)
@@ -155,7 +155,7 @@ def create_and_upload_input():
 
 @app.route('/get_results', methods=['GET'])
 def get_results():
-    timeout = 10 #in seconds
+    timeout =60 #in seconds
     bucket_name = request.args.get('bucket_name', None)
     num_commits = int(request.args.get('num_commits', None))
 
