@@ -65,9 +65,12 @@ If you have any problem with installation feel free to contact lionel.eisenberg@
 | ------ | -------- | ----- | ------- |
 | GET | /health_check | To check if endpoint is healthy | Success |
 | GET | / | To check if endpoint is healthy | Success |
-| GET | /last_commites/{git_address}{num_commits}{bucket_name} | Uploads past {num_commits} commits fromo {git_address} repository as zipped files to {bucket_name} | Success/Error |
+| GET | /last_commites/{git_address}{num_commits}{bucket_name} | Uploads past {num_commits} commits from {git_address} repository as zipped files to {bucket_name} | Success/Error |
 | GET | /delete_source/{bucket_name}{suffix} | deletes all files in {bucket_name} with suffix {suffix} | Success/Error |
-| GET | /get_results/{bucket_name}{num_commits} | gets informratino from target bucket when the bucket is filled | json of results and timestamps |
+| GET | /get_results/{bucket_name}{num_commits} | gets informratino from target bucket when the bucket is filled | json of results and timestamps / 504 timeout |
+| GET | /get_past_hashes/{git_address}{num_commits} | Gets the hashes from {git_address} for the past {num_commits} commits | Success/Error
+| POST | /create_and_upload_input/{bucket_name}{input_size} | uploads a file with {input_size} random integers to {bucket_name} | Success/Error
+| POST | /write_to_csv/{results} | writes results to csv (for benchmarking purposes only) | Success/Error
 
 The Results are returned to the frontend as a json of the shape of:
 

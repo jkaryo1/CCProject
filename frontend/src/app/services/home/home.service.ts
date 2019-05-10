@@ -49,4 +49,15 @@ export class HomeService {
       .set("num_commits", String(model.num_commits));
     return this.http.get(this.baseUrl + "/get_past_hashes", { params });
   }
+
+  writeToCsv(results, version: string) {
+    const params = new HttpParams()
+      .set("version", version)
+      .set("avg", String(results[0]))
+      .set("top", String(results[1]))
+      .set("avg_sd", String(results[2]))
+      .set("top_sd", String(results[3]));
+    console.log(this.http.get(this.baseUrl + "/write_to_csv", { params }))
+    return this.http.get(this.baseUrl + "/write_to_csv", { params });
+  }
 }

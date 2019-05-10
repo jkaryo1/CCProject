@@ -190,6 +190,20 @@ def getJson(bucket_name, num_commits, s3):
 
     return result
 
+@app.route("/write_to_csv", methods=['GET'])
+def write_to_csv():
+    version = request.args.get('version', None)
+    avg = request.args.get('avg', None)
+    top = request.args.get('top', None)
+    avg_sd = request.args.get('avg_sd', None)
+    top_sd = request.args.get('top_sd', None)
+
+    results = ",".join([avg, top, avg_sd, top_sd])
+    with open(version + ".csv", "w") as f:
+        f.write(results)
+    
+    return jsonify(success=True)
+
 if __name__ == '__main__':
     app.debug = True
     port = int(os.environ.get("PORT", 5002))

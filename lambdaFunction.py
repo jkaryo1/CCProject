@@ -38,7 +38,7 @@ def handler(event, context):
         key = record['s3']['object']['key']
         if ".zip" in key:
             # Get the version number of the commit.
-            version = key[:1]
+            version = key.split('.')[0]
             print(version)
             target_key = str(version) + '.json'
             # This line gets the bucket name from the event that triggered it.
