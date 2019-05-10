@@ -1,14 +1,16 @@
 import subprocess
+import sys
 
 '''
     This file is a local version of what our lambda functions should be running.
     Instead of FILEPATH and TESTPATH, we would have the address of the AWS S3
     bucket we created and would cherry pick a specific commit to test on.
 '''
+length = sys.argv[1]
 
 # Results seem to begin significance when input size is ~10,000
 FILEPATH = "../CloudComp-Testing/main_file.py"
-TESTPATH = "../CCProject/input_10000"
+TESTPATH = "../CCProject/input_" + length
 
 try:
     with open(TESTPATH) as f:

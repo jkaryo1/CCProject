@@ -9,8 +9,8 @@ for i in range(length):
     array.append(rand)
 
 sorted_array = sorted(array)
-f = open('input_' + str(length), 'w')
-f2 = open('sorted_' + str(length), 'w')
+f = open('../CCProject/input_' + str(length), 'w')
+f2 = open('../CCProject/sorted_' + str(length), 'w')
 for i in range(len(array)):
     f.write(str(array[i]) + "\n")
     f2.write(str(sorted_array[i]) + "\n")
