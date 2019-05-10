@@ -38,19 +38,18 @@ for i in files:
 
 fig, (one_k) = plt.subplots(nrows=1, sharex=True)
 
-lambda_data = [float(v['avg']) for k,v in data['10000'].items()]
-lambda_error = [float(v['std']) for k,v in data['10000'].items()]
-one_k.errorbar(commits, lambda_data, yerr=lambda_error, fmt='-o')
+lambda_data = [float(v['10']['avg']) for k,v in data.items()]
+lambda_error = [float(v['10']['std']) for k,v in data.items()]
+one_k.errorbar(input_size, lambda_data, yerr=lambda_error, fmt='-o')
 
-lambda_data = [float(v['max']) for k,v in data['10000'].items()]
-lambda_error = [float(v['max_std']) for k,v in data['10000'].items()]
-one_k.errorbar(commits, lambda_data, fmt='-o')
+lambda_data = [float(v['10']['max']) for k,v in data.items()]
+one_k.errorbar(input_size, lambda_data, fmt='-o')
 
-lambda_data = [float(v['bisect']) for k,v in data['10000'].items()]
-lambda_error = [float(v['bisect_std']) for k,v in data['10000'].items()]
-one_k.errorbar(commits, lambda_data, yerr=lambda_error, fmt='-o')
+lambda_data = [float(v['10']['bisect']) for k,v in data.items()]
+lambda_error = [float(v['10']['bisect_std']) for k,v in data.items()]
+one_k.errorbar(input_size, lambda_data, yerr=lambda_error, fmt='-o')
 
-one_k.set_title('File Size 10000')
+one_k.set_title('Amount of Commits 20')
 
 
 plt.legend(["avgerage", "max", "git bisect"])
