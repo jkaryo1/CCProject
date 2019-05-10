@@ -19,3 +19,24 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+.maindiv{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.maincard{
+  width: 40%;
+  height: 40%;
+  box-sizing: border-box;
+  /* needed styles below */
+  display: flex;
+  justify-content: space-between;
+}
+
+#wrapper {
+  display: flex;
+  justify-content: center;
+}
