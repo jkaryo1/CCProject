@@ -54,6 +54,6 @@ one_k.set_title('Amount of Commits 20')
 
 plt.legend(["Our Tool's Average", "Our Tool's Max", "Git Bisect Average"])
 
-plt.xlabel('Number of Commits Tested')
+plt.xlabel('Size of Input File')
 plt.ylabel('Duration of Test')
 plt.show()
