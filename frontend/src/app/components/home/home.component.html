@@ -1,32 +1,43 @@
-<div class="content-padder content-background">
-  <mat-card *ngIf="notSubmitted == true" >
+<div class="content-padder maindiv content-background">
+  <mat-card class="maincard" *ngIf="notSubmitted == true">
+    <!-- <mat-card class=""> -->
+      <!-- Welcome to our application! For testing purposes, please use the following link as a github address in order to test the functionality of our web application. -->
+    <!-- </mat-card> -->
+    <mat-card-content>
       <mat-card-title>Input Data</mat-card-title>
-      <mat-card-content>
-        <form (ngSubmit)="onSubmit()" #homeForm="ngForm">
-          <mat-form-field  class="form-group">
-            <mat-label for="github_address">Github Address</mat-label>
-            <input matInput type="text" class="form-control" [(ngModel)]="model.git_address"
-             id="github_address" name="github_address" #name="ngModel" required>
-          </mat-form-field >
-          <br>
-          <mat-form-field class="form-group">
-            <mat-label for="num_commits">Number of commits</mat-label>
-            <mat-select class="form-control" id="num_commits" [(ngModel)]="model.num_commits"
-            name="num_commits" #name="ngModel" required>
-              <mat-option *ngFor="let num of numbers"  [value]="num">{{num}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <br>
-          <mat-form-field  class="form-group">
-            <mat-label for="input_size">Input Size, between 1-10000</mat-label>
-            <input matInput type="text" class="form-control" [(ngModel)]="model.input_size"
-             id="input_size" name="input_size" #name="ngModel" required>
-          </mat-form-field >
-          <mat-card-actions>
-            <button mat-stroked-button color="primary" type="submit" class="btn btn-success" [disabled]="!homeForm.valid" >Submit</button>
-          </mat-card-actions>
-        </form>
-      </mat-card-content>
+      <form (ngSubmit)="onSubmit()" #homeForm="ngForm">
+        <mat-form-field class="form-group">
+          <mat-label for="github_address">Github Address</mat-label>
+          <input matInput type="text" class="form-control" [(ngModel)]="model.git_address" id="github_address" name="github_address" #name="ngModel" required>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="form-group">
+          <mat-label for="num_commits">Number of commits</mat-label>
+          <mat-select class="form-control" id="num_commits" [(ngModel)]="model.num_commits" name="num_commits" #name="ngModel" required>
+            <mat-option *ngFor="let num of numbers" [value]="num">{{num}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="form-group">
+          <mat-label for="input_size">Input Size, between 1-10000</mat-label>
+          <input matInput type="text" class="form-control" [(ngModel)]="model.input_size" id="input_size" name="input_size" #name="ngModel" required>
+        </mat-form-field>
+        <mat-card-actions id="wrapper">
+          <button  mat-stroked-button color="primary" type="submit" class="btn btn-success" [disabled]="!homeForm.valid">Submit</button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+    <mat-card-content style="margin: 30px;">
+      <p>Welcome to our application!<p>
+      <p>We recommend using:
+        <a href="https://github.com/LionelEisenberg/CloudComp-Testing.git">This Link</a>
+      for the github address while testing.
+      This web application was designed to process these types of repositories</p>
+
+      <p>We have limited the number of commits to 20 due to speed concerns</p>
+
+      <p>Feel free to visit our <a target="_blank" href="https://github.com/jkaryo1/CCProject"><img height="32" width="32" src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg" /></a></p>
+    </mat-card-content>
   </mat-card>
   <div class="load_container">
     <div *ngIf="loading == true" class="loader"></div>
