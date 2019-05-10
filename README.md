@@ -77,29 +77,6 @@ The Results are returned to the frontend as a json, which we display as the foll
 
 ![github-small](https://github.com/jkaryo1/CCProject/blob/master/Sample_Result.png)
 
-```json
-{
-  "0th commit": {
-    "TIMESTAMP": "Fri, 03 May 2019 17:39:42 GMT",
-    "name of test 1": true,
-    "name of test 2": true,
-    "name of test 3": true
-  },
-  "1th commit": {
-    "TIMESTAMP": "Fri, 03 May 2019 17:39:42 GMT",
-    "name of test 1": true,
-    "name of test 2": false,
-    "name of test 3": true
-  },
-  "2th commit": {
-    "TIMESTAMP": "Fri, 03 May 2019 17:39:42 GMT",
-    "name of test 1": true,
-    "name of test 2": false,
-    "name of test 3": true
-  },
-}
-```
-
 ## Checkpoint 1:
 
 **Plan**
