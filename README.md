@@ -50,11 +50,11 @@ Here are instructions, from the root directory of the repo:
  
  We retrieve AWS keys from the os so that the keys are more secure. To do so you must first add keys to your environment:
  
- #### On MacOS
+ #### On Linux based systems
  * Create a bash_profile file if you do not have one already `touch ~/.bash_proflie`
  * Edit bash_profile file by adding these two lines:
-   * `export ACCESS_ID="<your-access-id>"`
-   * `export ACCESS_KEY="<your-secret-key>"`
+   * `export ACCESS_ID="<access-id>"`
+   * `export ACCESS_KEY="<secret-key>"`
  * Then source your bash file: `source ~/.bash_profile`
  * Note: If you are still having permissions problems, it could be because of how your current `.bash_profile` is configured. Instead, create a new file with `touch ~/.aws_secrets` and follow the steps above using that file.
 
