@@ -73,7 +73,8 @@ If you have any problem with installation feel free to contact lionel.eisenberg@
 | POST | /create_and_upload_input/{bucket_name}{input_size} | uploads a file with {input_size} random integers to {bucket_name} | Success/Error
 | POST | /write_to_csv/{results} | writes results to csv (for benchmarking purposes only) | Success/Error
 
-The Results are returned to the frontend as a json of the shape of:
+The Results are returned to the frontend as a json, which we display as the following table:
+
 
 ```json
 {
