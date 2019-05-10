@@ -75,6 +75,7 @@ If you have any problem with installation feel free to contact lionel.eisenberg@
 
 The Results are returned to the frontend as a json, which we display as the following table:
 
+![github-small](https://github.com/jkaryo1/CCProject/blob/master/Sample_Result.png)
 
 ```json
 {
