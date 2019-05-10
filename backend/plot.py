@@ -53,7 +53,7 @@ one_k.errorbar(commits, lambda_data, yerr=lambda_error, fmt='-o')
 one_k.set_title('File Size 10000')
 
 
-plt.legend(["avgerage", "max", "git bisect"])
+plt.legend(["Our Tool's Average", "Our Tool's Max", "Git Bisect Average"])
 
 plt.xlabel('Number of Commits Tested')
 plt.ylabel('Duration of Test')
