@@ -56,7 +56,7 @@ Here are instructions, from the root directory of the repo:
    * `export ACCESS_ID="<your-access-id>"`
    * `export ACCESS_KEY="<your-secret-key>"`
  * Then source your bash file: `source ~/.bash_profile`
- * Note: If you are still having permissions problems, it could be because of how your current .bash_profile is configured. Instead, create a new file with `touch ~/.aws_secrets/` and follow the steps above using that file.
+ * Note: If you are still having permissions problems, it could be because of how your current `.bash_profile` is configured. Instead, create a new file with `touch ~/.aws_secrets` and follow the steps above using that file.
 
 If you have any problem with installation feel free to contact lionel.eisenberg@gmail.com.
 
