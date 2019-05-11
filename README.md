@@ -77,6 +77,8 @@ The Results are returned to the frontend as a json, which we display as the foll
 
 ![github-small](https://github.com/jkaryo1/CCProject/blob/master/Sample_Result.png)
 
+To clarify how to use the tool, the Github address of the repository must be the URL that ends with ".git".
+
 ## Checkpoint 1:
 
 **Plan**
